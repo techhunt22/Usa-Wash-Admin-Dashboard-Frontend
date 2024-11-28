@@ -11,8 +11,6 @@ export default function Login() {
       style={{
         backgroundImage:
           "linear-gradient(rgba(243, 248, 254, 0.9), rgba(243, 248, 254, 0.9)), url(/background.png)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
       }}
     >
       <Image src={"/logo.png"} width={200} height={200} alt="logo.png" />
