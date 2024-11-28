@@ -9,7 +9,8 @@ export default {
   theme: {
     extend: {
       colors: {
-       primary:'#2F74FA'
+       primary:'#2F74FA',
+       sidenav:'#1A3D7C'
       },
       fontFamily:{
         custom:['Roboto']
