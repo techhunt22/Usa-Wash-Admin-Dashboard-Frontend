@@ -12,10 +12,20 @@ export default {
        primary:'#2F74FA',
        sidenav:'#1A3D7C'
       },
-      fontFamily:{
-        custom:['Roboto']
-        
-      }
+      fontFamily: {
+        roboto: ["Roboto"], 
+        poppins:["Poppins"],
+        montserrat:["Montserrat"]
+      },
+      fontSize: {
+        sm: '14px',
+        base: '16px',
+        lg: '18px',
+        xl: '24px',
+        '2xl': '30px',
+        '3xl': '36px',
+        '4xl': '48px',
+      },
     },
   },
   plugins: [],

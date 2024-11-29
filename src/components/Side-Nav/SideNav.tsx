@@ -1,58 +1,76 @@
+"use client";
 import Image from "next/image";
-import React from "react";
-import Button from "./Button";
-import UserSelection from "./UserSelection";
+import React, { useState } from "react";
+import { Button } from "../button/Button";
+import { UserSelection } from "../user-selection/UserSelection";
+import { Logout } from "../log-out/Logout";
 
-function SideNav() {
+export const SideNav = (): JSX.Element | null => {
+  const [isUserSelectionExpanded, setIsUserSelectionExpanded] =
+    useState<boolean>(false);
+  const [logoutModal, setLogoutModal] = useState<boolean>(false);
+
   return (
-    <main className="w-[15%] min-h-screen  fixed border-r-2 flex flex-col ">
+    <main className="w-[15%] font-roboto   min-h-screen fixed  flex flex-col">
       <Image
         src={"/logo.png"}
         width={100}
         height={100}
-        alt="logo.png"
+        alt="logo.svg"
         className="ml-4 pt-4"
       />
-      <div className="navigation links w-full flex flex-col h-max pb-2 gap-8  items-center mt-4 ">
+      <div className="navigation links w-full flex flex-col h-max pb-2 gap-8 items-center mt-4">
         <Button
           path={"/dashboard"}
           name={"Dashboard"}
-          ImageUrl={"/side-nav/home.png"}
-          ActiveImageUrl={"/side-nav/home-blue.png"}
+          ImageUrl={"/icons/dashboard.svg"}
+          ActiveImageUrl={"/icons/dashboard-blue.svg"}
         />
-        <UserSelection />
+        <div className="w-[95%]">
+          <UserSelection onToggle={setIsUserSelectionExpanded} />
+        </div>
+        <div
+          className={`transition-all w-[95%] ${
+            isUserSelectionExpanded ? "mt-32" : "mt-4"
+          }`}
+        >
+          <Button
+            path={"/dashboard/job-management"}
+            name={"Job Management"}
+            ImageUrl={"/icons/job-management.svg"}
+            ActiveImageUrl={"/icons/job-management-blue.svg"}
+          />
+        </div>
         <Button
-          path={"/dashboard/Job-Management"}
-          name={"Job Management"}
-          ImageUrl={"/side-nav/folder-management.png"}
-          ActiveImageUrl={"/side-nav/folder-management-blue.png"}
-        />
-        <Button
-          path={"/dashboard/Vendor-Approvals"}
+          path={"/dashboard/vendor-approvals"}
           name={"Vendor Approvals"}
-          ImageUrl={"/side-nav/approvals.png"}
-          ActiveImageUrl={"/side-nav/approvals-blue.png"}
+          ImageUrl={"/icons/vendor-approval.svg"}
+          ActiveImageUrl={"/icons/vendor-approval-blue.svg"}
         />
       </div>
-      <div className="content w-full flex flex-col h-max pb-2 gap-2  items-center mt-[200px]">
+      <div className="content w-full flex flex-col h-max pb-2 gap-2 items-center mt-[200px]">
         <Button
-          path={"/dashboard/Settings"}
+          path={"/dashboard/settings"}
           name={"Settings"}
-          ImageUrl={"/side-nav/settings.png"}
-          ActiveImageUrl={"/side-nav/settings-blue.png"}
+          ImageUrl={"/icons/settings.svg"}
+          ActiveImageUrl={"/icons/settings-blue.svg"}
         />
-        <button className="flex items-center w-[90%] h-[60px] gap-4 ">
+        <button
+          onClick={() => setLogoutModal(true)}
+          className="flex items-center w-[90%] h-[60px] gap-4"
+        >
           <Image
-            src={"/side-nav/logout.png"}
+            src={"/icons/logout.svg"}
             width={25}
             height={25}
-            alt="logout.png"
+            alt="logout.svg"
           />
-          <p className="text-sidenav text-[18px]">Logout</p>
+          <p className="text-sidenav text-lg">Logout</p>
         </button>
       </div>
+      {logoutModal && <Logout onToggle={setLogoutModal} />}
     </main>
   );
-}
+};
 
 export default SideNav;

@@ -1,5 +1,5 @@
-// DashboardLayout.tsx
-import SideNav from "@/components/Side-Nav/SideNav";
+import { Avatar } from "@/components/avatar/Avatar";
+import SideNav from "@/components/side-nav/SideNav";
 import React from "react";
 
 export default function DashboardLayout({
@@ -8,9 +8,14 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="w-full min-h-screen flex">
+    <main className="w-full h-full flex">
       <SideNav />
-      <div className="flex-1 ml-[15%] ">{children}</div>{" "}
+      <div className="flex-1 ml-[15%] ">
+        <div className="w-full h-[85px] flex items-end justify-end px-4">
+          <Avatar />
+        </div>
+        {children}
+      </div>
     </main>
   );
 }
