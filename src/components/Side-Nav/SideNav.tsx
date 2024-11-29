@@ -72,5 +72,3 @@ export const SideNav = (): JSX.Element | null => {
     </main>
   );
 };
-
-export default SideNav;

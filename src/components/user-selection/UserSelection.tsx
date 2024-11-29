@@ -2,8 +2,8 @@
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { Button } from "../button/Button";
-import { UserSelectionProps } from "../../../utils/types";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
+import { UserSelectionProps } from "../../../utils/types";
 
 export const UserSelection = ({
   onToggle,
@@ -17,12 +17,7 @@ export const UserSelection = ({
   return (
     <div className="user-selection relative flex items-center justify-between w-[95%] text-sidenav">
       <div className="flex gap-4">
-        <Image
-          src={"/side-nav/ci_users-group.png"}
-          width={25}
-          height={25}
-          alt="users.png"
-        />
+        <Image src={"/icons/user.svg"} width={25} height={25} alt="users.svg" />
         <p className="text-[18px] text-sidenav">Users</p>
       </div>
       <button
@@ -41,16 +36,16 @@ export const UserSelection = ({
         } top-8 bg-white shadow-sm`}
       >
         <Button
-          path={"/dashboard/UserSelection/Vendor-Management"}
+          path={"/dashboard/user-selection/vendor-management"}
           name={"Vendor Management"}
-          ImageUrl={"/side-nav/folder-management.png"}
-          ActiveImageUrl={"/side-nav/folder-management-blue.png"}
+          ImageUrl={"/icons/job-management.svg"}
+          ActiveImageUrl={"/icons/job-management-blue.svg"}
         />
         <Button
-          path={"/dashboard/UserSelection/Customer-Management"}
+          path={"/dashboard/user-selection/customer-management"}
           name={"Customer Management"}
-          ImageUrl={"/side-nav/folder-management.png"}
-          ActiveImageUrl={"/side-nav/folder-management-blue.png"}
+          ImageUrl={"/icons/job-management.svg"}
+          ActiveImageUrl={"/icons/job-management-blue.svg"}
         />
       </div>
     </div>

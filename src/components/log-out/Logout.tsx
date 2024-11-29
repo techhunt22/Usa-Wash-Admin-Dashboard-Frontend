@@ -7,7 +7,7 @@ export const Logout = ({ onToggle }: LogoutModal): JSX.Element | null => {
       <div className="container bg-white w-[370px] h-[300px] rounded-3xl flex flex-col items-center justify-center gap-6">
         <div className="flex flex-col gap-1 items-center justify-center">
           <Image
-            src={"/logout/logout.png"}
+            src={"/images/logout.svg"}
             width={60}
             height={60}
             alt="logout.png"
