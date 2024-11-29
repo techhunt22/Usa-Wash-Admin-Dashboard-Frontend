@@ -9,7 +9,7 @@ export const Button = ({
     <button
       className={`w-[116px] h-[30px] bg-btn ${color} rounded-lg font-roboto font-medium`}
     >
-      View Details
+      View Details {path}
     </button>
   );
 };

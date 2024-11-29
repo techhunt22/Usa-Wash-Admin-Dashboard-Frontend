@@ -1,5 +1,4 @@
 import { JobTable } from "@/components/job-table/JobTable";
-import { Button } from "@/components/view-details-btn/Button";
 import Image from "next/image";
 
 export const JobManagement = (): JSX.Element | null => {
