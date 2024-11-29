@@ -15,7 +15,7 @@ export const UserSelection = ({
   }, [modalVisible, onToggle]);
 
   return (
-    <div className="user-selection relative flex items-center justify-between w-[95%] text-sidenav">
+    <div className="user-selection relative flex items-center justify-between w-full rounded-lg h-[60px] border-[1px] border-background text-sidenav">
       <div className="flex gap-4">
         <Image src={"/icons/user.svg"} width={25} height={25} alt="users.svg" />
         <p className="text-[18px] text-sidenav">Users</p>
@@ -33,7 +33,7 @@ export const UserSelection = ({
       <div
         className={`w-full h-[120px] flex flex-col gap-2 transition-all ${
           modalVisible ? "absolute " : "hidden"
-        } top-8 bg-white shadow-sm`}
+        } top-16 bg-white shadow-sm`}
       >
         <Button
           path={"/dashboard/user-selection/vendor-management"}

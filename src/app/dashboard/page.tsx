@@ -1,5 +1,8 @@
+import { Dashboard } from "@/components/screens/dashboard/dashboard";
 import React from "react";
 
-export default function page() {
-  return <div>page</div>;
-}
+const page = (): JSX.Element | null => {
+  return <Dashboard />;
+};
+
+export default page;

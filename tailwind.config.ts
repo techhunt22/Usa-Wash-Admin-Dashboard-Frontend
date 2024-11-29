@@ -10,7 +10,9 @@ export default {
     extend: {
       colors: {
        primary:'#2F74FA',
-       sidenav:'#1A3D7C'
+       sidenav:'#1A3D7C',
+       btn:'#2F74FA1A',
+       background:'#F5F5F5'
       },
       fontFamily: {
         roboto: ["Roboto"], 
@@ -18,6 +20,7 @@ export default {
         montserrat:["Montserrat"]
       },
       fontSize: {
+        xs:'12px',
         sm: '14px',
         base: '16px',
         lg: '18px',
