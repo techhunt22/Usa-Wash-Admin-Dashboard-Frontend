@@ -3,7 +3,7 @@ import { Button } from "../view-details-btn/Button";
 
 export const PendingApprovals = (): JSX.Element | null => {
   return (
-    <div className="pending-approvals w-[30%] h-[225px] bg-white shadow-lg flex items-center justify-center ">
+    <div className="pending-approvals rounded-xl w-[30%] h-[225px] bg-white shadow-lg flex items-center justify-center ">
       <div className="content flex flex-col gap-2 mt-8 h-full ">
         <h1 className="font-roboto text-lg font-semibold">
           Pending Vendor Approvals

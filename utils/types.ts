@@ -43,3 +43,19 @@ export interface ServiceData {
   location: string;
   date: string;
 }
+
+export interface JobFilterProp {
+  onToggle : (isVisible:boolean)=> void
+}
+
+export interface ChartData {
+  name: string;
+  jobs: number;
+}
+
+export interface DataItem {
+  name: string;
+  value: number;
+}
+
+

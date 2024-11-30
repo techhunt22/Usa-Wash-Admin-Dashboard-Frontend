@@ -1,3 +1,6 @@
+import { JobActivity } from "@/components/job-activity/JobActivity";
+import { JobPosted } from "@/components/job-posted/JobPosted";
+import { JobTable } from "@/components/job-table/JobTable";
 import { PendingApprovals } from "@/components/pending-approvals/PendingApprovals";
 import { Stats } from "@/components/stats/stats";
 import { TotalUsers } from "@/components/total-users/TotalUser";
@@ -19,6 +22,14 @@ export const Dashboard = (): JSX.Element | null => {
 
         <TotalUsers />
         <PendingApprovals />
+      </div>
+      <div className="graphs w-full h-[430px] px-4 flex items-center justify-between flex-wrap ">
+        <JobPosted />
+        <JobActivity />
+      </div>
+      <div className="job-table px-4 flex flex-col gap-2">
+        <h1 className="font-montserrat font-semibold text-xl">All Jobs</h1>
+        <JobTable />
       </div>
     </main>
   );
