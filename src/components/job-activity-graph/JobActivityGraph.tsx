@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Legend,
-  ResponsiveContainer,
-  LabelList,
-} from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { DataItem } from "../../../utils/types";
 
 interface DonutChartProps {
@@ -34,15 +27,7 @@ const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
           paddingAngle={5}
           isAnimationActive={true}
           cornerRadius={10}
-          label={({
-            cx,
-            cy,
-            midAngle,
-            innerRadius,
-            outerRadius,
-            value,
-            index,
-          }) => {
+          label={({ cx, cy, midAngle, innerRadius, outerRadius, index }) => {
             const RADIAN = Math.PI / 180;
             const radius = innerRadius + (outerRadius - innerRadius) / 2;
             const x = cx + radius * Math.cos(-midAngle * RADIAN);

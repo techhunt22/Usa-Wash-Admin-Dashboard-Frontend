@@ -7,8 +7,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  XAxisProps,
-  YAxisProps,
 } from "recharts";
 import { ChartData } from "../../../utils/types";
 
