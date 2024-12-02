@@ -5,14 +5,14 @@ import { Button } from "../button/Button";
 import { UserSelection } from "../user-selection/UserSelection";
 import { Logout } from "../log-out/Logout";
 
-export const SideNav = (): JSX.Element | null => {
+export const Sidenav = (): JSX.Element | null => {
   const [isUserSelectionExpanded, setIsUserSelectionExpanded] =
     useState<boolean>(false);
   const [logoutModal, setLogoutModal] = useState<boolean>(false);
 
   return (
-    <main className="w-[20%] font-roboto  min-h-screen fixed  flex flex-col items-center ">
-      <div className="w-[330px] bg-white mt-4 rounded-xl">
+    <main className="w-full font-roboto  min-h-screen   flex flex-col items-center ">
+      <div className="w-[80%] bg-white mt-4 rounded-xl">
         <Image
           src={"/images/logo.png"}
           width={100}
