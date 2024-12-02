@@ -11,17 +11,19 @@ export const Dashboard = (): JSX.Element | null => {
       <div className="stats-graphs w-full h-[250px] flex items-center justify-evenly flex-wrap ">
         <Stats
           name={"Total Customers"}
+          width={"w-[22%]"}
           number={1635}
           src={"/images/total-customer.svg"}
         />
         <Stats
           name={"Total Vendors"}
+          width={"w-[22%]"}
           number={668}
           src={"/images/total-vendors.svg"}
         />
 
         <TotalUsers />
-        <PendingApprovals />
+        <PendingApprovals width={`w-[30%]`} />
       </div>
       <div className="graphs w-full h-[430px] px-4 flex items-center justify-between flex-wrap ">
         <JobPosted />

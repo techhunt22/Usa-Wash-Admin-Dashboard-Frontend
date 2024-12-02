@@ -25,7 +25,9 @@ export default {
        jobFilterText:'#878787',
        customRed:'#FB3B52',
        redBg:'#FF9F9D',
-       JobActivity:'#9291A5'
+       JobActivity:'#9291A5',
+       darkGray:'#333333',
+       tableData:'#1B2128'
 
        
       },

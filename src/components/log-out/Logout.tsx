@@ -4,7 +4,7 @@ import { LogoutModal } from "../../../utils/types";
 export const Logout = ({ onToggle }: LogoutModal): JSX.Element | null => {
   return (
     <main className="fixed inset-0 bg-black/20 flex items-center justify-center ">
-      <div className="container bg-white w-[370px] h-[300px] rounded-3xl flex flex-col items-center justify-center gap-6">
+      <div className="container bg-white w-[370px] h-[300px] rounded-3xl flex flex-col items-center justify-center gap-6 z-50">
         <div className="flex flex-col gap-1 items-center justify-center">
           <Image
             src={"/images/logout.svg"}

@@ -1,4 +1,4 @@
-import { ServiceData } from "./types";
+import { ServiceData, VendorData } from "./types";
 
 export const dummyData :ServiceData[] = [
     {
@@ -391,4 +391,153 @@ export const dummyData :ServiceData[] = [
   
    
   ];
+
+export const vendorDummyData: VendorData[] =[
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+
+{
+  id:1,
+  name:'Jhon Doe',
+  phone:'+1 987-654-3210',
+  email:'jane.smith@email.com'
+},
+
+]
   

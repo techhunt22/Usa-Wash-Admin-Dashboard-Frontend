@@ -19,7 +19,7 @@ export const JobTable = (): JSX.Element | null => {
 
   return (
     <div className="table w-full h-[550px] bg-white rounded-xl ">
-      <div className="table-headings font-roboto text-sm font-semibold grid grid-cols-8 items-center h-14 px-2">
+      <div className="table-headings font-roboto text-sm font-semibold grid text-darkGray grid-cols-8 items-center h-14 px-2">
         <p>Job ID</p>
         <p>Job Type</p>
         <p>Customer Name</p>
@@ -32,7 +32,7 @@ export const JobTable = (): JSX.Element | null => {
       {paginatedData.map((item, index) => (
         <div
           key={index}
-          className={`table-data font-roboto text-sm font-normal grid grid-cols-8 items-center h-14 px-2 ${
+          className={`table-data font-roboto text-sm font-normal text-tableData grid grid-cols-8 items-center h-14 px-2 ${
             index % 2 === 0 ? "bg-white" : "bg-[#F9FAFC]"
           }`}
         >

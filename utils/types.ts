@@ -16,7 +16,8 @@ export interface ButtonProps  {
   export interface GraphStats {
     number:number,
     name:string,
-    src:string
+    src:string,
+    width:string,
   }
 
 export interface ViewDetailsProps {
@@ -57,5 +58,21 @@ export interface DataItem {
   name: string;
   value: number;
 }
+
+export interface PendingApprovalsStats {
+  width:string
+}
+
+export interface VendorData {
+  id:number
+  name:string,
+  email:string,
+  phone:string,
+}
+
+export interface ViewDateRangeProps {
+  onToggle:(isVisible:boolean)=>void
+}
+
 
 

@@ -6,9 +6,12 @@ export const Stats = ({
   name,
   number,
   src,
+  width,
 }: GraphStats): JSX.Element | null => {
   return (
-    <div className="total-customers w-[22%] h-[225px] bg-white shadow-lg rounded-lg flex items-center justify-center">
+    <div
+      className={`total-customers ${width} h-[225px] bg-white shadow-lg rounded-lg flex items-center justify-center`}
+    >
       <div className="content w-[50%] flex flex-col items-center gap-4">
         <div className="flex flex-col ">
           <p className="text-sm font-roboto font-normal text-[#333333]">

@@ -1,3 +1,5 @@
+import { VendorApprovals } from "@/components/screens/vendor-approvals/VendorApprovals";
+
 export default function page() {
-  return <div>page</div>;
+  return <VendorApprovals />;
 }

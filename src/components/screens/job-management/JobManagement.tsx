@@ -1,6 +1,7 @@
 "use client";
 import { JobFilter } from "@/components/job-filter/JobFilter";
 import { JobTable } from "@/components/job-table/JobTable";
+import { SearchInput } from "@/components/search-input/SearchInput";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -11,21 +12,7 @@ export const JobManagement = (): JSX.Element | null => {
       <div className="headings w-full h-20  flex items-center justify-between px-4">
         <h1 className="font-roboto text-xl font-semibold">All Jobs</h1>
         <div className="options w-[40%] h-full  flex  items-center justify-end gap-2">
-          <div className="search w-[80%] bg-white justify-center h-[60px] flex items-center rounded-xl gap-2">
-            <input
-              type="text"
-              placeholder="Search...."
-              className="outline-none w-[80%] h-full "
-            />
-            <button>
-              <Image
-                src={"/icons/search.svg"}
-                width={19}
-                height={19}
-                alt="search.svg"
-              />
-            </button>
-          </div>
+          <SearchInput />
           <button
             onClick={() => {
               setModalVisible(true);
