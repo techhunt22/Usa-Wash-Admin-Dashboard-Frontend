@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { JobFilterProp } from "../../../utils/types";
-import { Box, Slider } from "@mui/material";
+import { Slider } from "@mui/material";
 
 export const JobFilter = ({ onToggle }: JobFilterProp): JSX.Element | null => {
   const [range, setRange] = useState<number[]>([700, 3000]);

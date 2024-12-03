@@ -5,7 +5,7 @@ import { Input } from "../input/input";
 export const EditProfile = (): JSX.Element | null => {
   const [image, setImage] = useState<string | null>(null);
 
-  const handleImageUpload = useCallback(() => {
+  const handleImageUpload = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       if (event.target.files && event.target.files[0]) {
         const file = event.target.files[0];
@@ -13,8 +13,9 @@ export const EditProfile = (): JSX.Element | null => {
         reader.onload = () => setImage(reader.result as string);
         reader.readAsDataURL(file);
       }
-    };
-  }, [image]);
+    },
+    []
+  );
 
   return (
     <div className="container w-[397px] h-[669px] flex flex-col items-center gap-6 justify-center  bg-white rounded-xl mt-10 shadow-lg">

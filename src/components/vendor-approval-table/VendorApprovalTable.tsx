@@ -11,7 +11,7 @@ export const VendorApprovalTable = (): JSX.Element | null => {
 
   const totalPages = useMemo(
     () => Math.ceil(vendorDummyData.length / ITEMS_PER_PAGE),
-    [vendorDummyData?.length]
+    []
   );
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;

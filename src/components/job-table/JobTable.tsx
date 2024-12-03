@@ -11,7 +11,7 @@ export const JobTable = (): JSX.Element | null => {
 
   const totalPages = useMemo(
     () => Math.ceil(dummyData.length / ITEMS_PER_PAGE),
-    [dummyData.length]
+    []
   );
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
