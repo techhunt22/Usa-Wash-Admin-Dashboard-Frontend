@@ -1,5 +1,5 @@
 import { Avatar } from "@/components/avatar/Avatar";
-import { Sidenav } from "@/components/Side-nav/Sidenav";
+import { SideNav } from "@/components/Side-Nav/SideNav";
 import React from "react";
 
 export default function DashboardLayout({
@@ -10,7 +10,7 @@ export default function DashboardLayout({
   return (
     <main className="w-full h-full flex">
       <div className="div w-[20%] ">
-        <Sidenav />
+        <SideNav />
       </div>
       <div className="  w-[80%]  overflow-hidden">
         <div className="w-full h-[85px] flex items-end justify-end px-4">

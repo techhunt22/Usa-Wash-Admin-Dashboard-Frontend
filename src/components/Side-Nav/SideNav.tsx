@@ -5,7 +5,7 @@ import { Button } from "../button/Button";
 import { UserSelection } from "../user-selection/UserSelection";
 import { Logout } from "../log-out/Logout";
 
-export const Sidenav = (): JSX.Element | null => {
+export const SideNav = (): JSX.Element | null => {
   const [isUserSelectionExpanded, setIsUserSelectionExpanded] =
     useState<boolean>(false);
   const [logoutModal, setLogoutModal] = useState<boolean>(false);
