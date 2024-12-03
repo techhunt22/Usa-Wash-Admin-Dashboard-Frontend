@@ -10,7 +10,7 @@ import { useState } from "react";
 export const VendorApprovals = (): JSX.Element | null => {
   const [modalVisible, setIsModalVisible] = useState(false);
   return (
-    <main className="w-full h-full">
+    <main className="w-full h-full pb-10 ">
       <div className="stats flex flex-wrap gap-4 mt-10">
         <Stats
           number={668}

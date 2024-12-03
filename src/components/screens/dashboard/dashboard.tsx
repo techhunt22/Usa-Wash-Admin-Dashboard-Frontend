@@ -7,7 +7,7 @@ import { TotalUsers } from "@/components/total-users/TotalUser";
 
 export const Dashboard = (): JSX.Element | null => {
   return (
-    <main className="w-full h-full ">
+    <main className="w-full h-full pb-10 ">
       <div className="stats-graphs w-full h-[250px] flex items-center justify-evenly flex-wrap ">
         <Stats
           name={"Total Customers"}

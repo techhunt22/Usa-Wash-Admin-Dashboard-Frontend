@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/view-details-btn/Button";
 import Image from "next/image";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { vendorDummyData } from "utils/data";
 
 const ITEMS_PER_PAGE = 7;
@@ -9,16 +9,19 @@ const ITEMS_PER_PAGE = 7;
 export const VendorApprovalTable = (): JSX.Element | null => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(vendorDummyData.length / ITEMS_PER_PAGE);
-
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const paginatedData = vendorDummyData.slice(
-    startIndex,
-    startIndex + ITEMS_PER_PAGE
+  const totalPages = useMemo(
+    () => Math.ceil(vendorDummyData.length / ITEMS_PER_PAGE),
+    [vendorDummyData?.length]
   );
 
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  const paginatedData = useMemo(
+    () => vendorDummyData?.slice(startIndex, startIndex + ITEMS_PER_PAGE),
+    [startIndex]
+  );
   return (
-    <div className="table w-[98%] h-[500px] pb-10 px-2 bg-white rounded-2xl ">
+    <div className="table w-[98%] h-max pb-10 px-2 bg-white rounded-2xl ">
       <div className="table-headings font-roboto text-sm font-semibold grid text-darkGray grid-cols-4 gap-x-48 items-center h-14 px-2">
         <p>Vendor Name</p>
         <p>Email</p>

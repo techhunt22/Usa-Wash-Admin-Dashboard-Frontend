@@ -1,3 +1,18 @@
+export interface InputProps {
+  name:string,
+  placeholder:string,
+  width:string,
+  height:string,
+  type:string
+}
+
+export interface PasswordInputProps {
+  name:string,
+  width:string,
+  height:string,
+}
+
+
 export interface ButtonProps  {
     path: string;
     name: string;

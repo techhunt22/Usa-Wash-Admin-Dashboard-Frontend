@@ -11,8 +11,8 @@ export const Sidenav = (): JSX.Element | null => {
   const [logoutModal, setLogoutModal] = useState<boolean>(false);
 
   return (
-    <main className="w-full font-roboto  min-h-screen   flex flex-col items-center ">
-      <div className="w-[80%] bg-white mt-4 rounded-xl">
+    <main className="w-[20%] font-roboto  min-h-screen fixed  flex flex-col items-center">
+      <div className="w-[80%]  bg-white mt-4 rounded-xl">
         <Image
           src={"/images/logo.png"}
           width={100}

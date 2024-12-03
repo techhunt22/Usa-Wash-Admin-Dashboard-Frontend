@@ -33,7 +33,7 @@ export const UserSelection = ({
       <div
         className={`w-full h-[120px] flex flex-col gap-2 transition-all ${
           modalVisible ? "absolute " : "hidden"
-        } top-16 bg-white shadow-sm`}
+        } top-16 bg-white `}
       >
         <Button
           path={"/dashboard/user-selection/vendor-management"}

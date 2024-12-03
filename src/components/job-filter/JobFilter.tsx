@@ -1,21 +1,22 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { JobFilterProp } from "../../../utils/types";
+import { Box, Slider } from "@mui/material";
 
 export const JobFilter = ({ onToggle }: JobFilterProp): JSX.Element | null => {
-  const [minValue, setMinValue] = useState<number>(700);
-  const [maxValue, setMaxValue] = useState<number>(3000);
-  const rangeMin: number = 700;
-  const rangeMax: number = 3000;
+  const [range, setRange] = useState<number[]>([700, 3000]);
 
-  const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Math.min(Number(e.target.value), maxValue - 1);
-    setMinValue(value);
-  };
+  const rangeMin = 700;
+  const rangeMax = 3000;
 
-  const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Math.max(Number(e.target.value), minValue + 1);
-    setMaxValue(value);
-  };
+  const handleRangeChange = useCallback(
+    (event: Event, newValue: number | number[]) => {
+      setRange(newValue as number[]);
+    },
+    []
+  );
+
+  const minValue = useMemo(() => range[0], [range]);
+  const maxValue = useMemo(() => range[1], [range]);
 
   return (
     <main className="fixed inset-0 bg-black/10 flex items-center justify-center">
@@ -54,34 +55,20 @@ export const JobFilter = ({ onToggle }: JobFilterProp): JSX.Element | null => {
               </div>
             </div>
 
-            {/* Container for Range Sliders */}
             <div className="flex  w-[320px]">
-              {/* Min Slider */}
-              <input
-                type="range"
+              <Slider
+                value={range}
+                onChange={handleRangeChange}
                 min={rangeMin}
                 max={rangeMax}
-                value={minValue}
-                onChange={handleMinChange}
-                className="min-slider w-[50%] h-[10px]"
-                style={{
-                  background: `linear-gradient(to right, #ff5733 ${
-                    ((minValue - rangeMin) / (rangeMax - rangeMin)) * 100
-                  }%, #ffffff 0%)`,
-                }}
-              />
-              {/* Max Slider */}
-              <input
-                type="range"
-                min={rangeMin}
-                max={rangeMax}
-                value={maxValue}
-                onChange={handleMaxChange}
-                className="max-slider w-[50%] h-[10px]"
-                style={{
-                  background: `linear-gradient(to right, #ff5733 ${
-                    ((maxValue - rangeMin) / (rangeMax - rangeMin)) * 100
-                  }%, #ffffff 0%)`,
+                disableSwap
+                sx={{
+                  "& .MuiSlider-track": { backgroundColor: "#3b82f6" },
+                  "& .MuiSlider-thumb": {
+                    backgroundColor: "#3b82f6",
+                    "&:hover": { boxShadow: "0px 0px 5px 2px #2563eb" },
+                  },
+                  "& .MuiSlider-rail": { backgroundColor: "#ffffff" },
                 }}
               />
             </div>
