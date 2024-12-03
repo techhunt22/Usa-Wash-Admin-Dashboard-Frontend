@@ -36,13 +36,13 @@ export const UserSelection = ({
         } top-16 bg-white `}
       >
         <Button
-          path={"/dashboard/user-selection/vendor-management"}
+          path={"/dashboard/user-selection/Vendor-Management"}
           name={"Vendor Management"}
           ImageUrl={"/icons/job-management.svg"}
           ActiveImageUrl={"/icons/job-management-blue.svg"}
         />
         <Button
-          path={"/dashboard/user-selection/customer-management"}
+          path={"/dashboard/user-selection/Customer-Management"}
           name={"Customer Management"}
           ImageUrl={"/icons/job-management.svg"}
           ActiveImageUrl={"/icons/job-management-blue.svg"}
