@@ -22,7 +22,7 @@ export const JobTable = (): JSX.Element | null => {
   );
 
   return (
-    <div className="table w-full h-max pb-10 bg-white rounded-xl ">
+    <div className="table w-full h-max pb-4 bg-white rounded-xl ">
       <div className="table-headings font-roboto text-sm font-semibold grid text-darkGray grid-cols-8 items-center h-14 px-2">
         <p>Job ID</p>
         <p>Job Type</p>
@@ -75,7 +75,7 @@ export const JobTable = (): JSX.Element | null => {
         </div>
       ))}
 
-      <div className="flex justify-center items-center gap-2 mt-4">
+      <div className="flex justify-center items-center gap-2 mt-2">
         {Array.from({ length: totalPages }, (_, index) => index + 1).map(
           (page) => (
             <button

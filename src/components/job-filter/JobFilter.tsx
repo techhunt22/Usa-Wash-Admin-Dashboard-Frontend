@@ -20,7 +20,12 @@ export const JobFilter = ({ onToggle }: JobFilterProp): JSX.Element | null => {
 
   return (
     <main className="fixed inset-0 bg-black/10 flex items-center justify-center">
-      <div className="filter bg-white rounded-xl w-[430px] h-[667px] flex flex-col">
+      <div
+        style={{
+          backgroundImage: "url(/images/side-nav.svg)",
+        }}
+        className="filter bg-white rounded-xl w-[430px] h-[667px] flex flex-col"
+      >
         <div className="header w-full h-[70px] border-b-[2px] border-gray-300 flex items-center justify-between px-10">
           <h1 className="font-montserrat font-semibold text-xl">Filter</h1>
           <button

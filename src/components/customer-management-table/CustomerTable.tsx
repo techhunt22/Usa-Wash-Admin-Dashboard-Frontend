@@ -6,7 +6,7 @@ import { vendorDummyData } from "utils/data";
 
 const ITEMS_PER_PAGE = 7;
 
-export const VendorApprovalTable = (): JSX.Element | null => {
+export const CustomerTable = (): JSX.Element | null => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = useMemo(

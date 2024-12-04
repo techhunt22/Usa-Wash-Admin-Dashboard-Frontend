@@ -18,9 +18,13 @@ export const Login = (): JSX.Element | null => {
           placeholder="Email"
           width={`w-[350px]`}
           height={`h-[82px]`}
+          name={"Email"}
+        />
+        <PasswordInput
+          width={`w-[350px]`}
+          height={`h-[60px]`}
           name={"Password"}
         />
-        <PasswordInput width={`w-[350px]`} height={`h-[60px]`} name={"Email"} />
 
         <button className="w-[350px] h-[60px] rounded-2xl bg-primary text-white">
           Login

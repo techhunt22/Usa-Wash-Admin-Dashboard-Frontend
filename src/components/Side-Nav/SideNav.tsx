@@ -12,7 +12,12 @@ export const SideNav = (): JSX.Element | null => {
 
   return (
     <main className="w-[20%] font-roboto  min-h-screen fixed  flex flex-col items-center">
-      <div className="w-[80%]  bg-white mt-4 rounded-xl">
+      <div
+        style={{
+          backgroundImage: "url(/images/side-nav.svg)",
+        }}
+        className="w-[80%]  bg-white mt-4 rounded-xl"
+      >
         <Image
           src={"/images/logo.png"}
           width={100}

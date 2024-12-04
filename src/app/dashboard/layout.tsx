@@ -12,7 +12,7 @@ export default function DashboardLayout({
       <div className="div w-[20%] ">
         <SideNav />
       </div>
-      <div className="  w-[80%]  overflow-hidden">
+      <div className="  w-[80%]  ">
         <div className="w-full h-[85px] flex items-end justify-end px-4">
           <Avatar />
         </div>
