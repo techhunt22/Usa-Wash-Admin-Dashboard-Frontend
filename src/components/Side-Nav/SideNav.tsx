@@ -42,14 +42,14 @@ export const SideNav = (): JSX.Element | null => {
               }`}
             >
               <Button
-                path={"/dashboard/job-management"}
+                path={"/dashboard/Job-Management"}
                 name={"Job Management"}
                 ImageUrl={"/icons/job-management.svg"}
                 ActiveImageUrl={"/icons/job-management-blue.svg"}
               />
             </div>
             <Button
-              path={"/dashboard/vendor-approvals"}
+              path={"/dashboard/Vendor-Approvals"}
               name={"Vendor Approvals"}
               ImageUrl={"/icons/vendor-approval.svg"}
               ActiveImageUrl={"/icons/vendor-approval-blue.svg"}
@@ -58,7 +58,7 @@ export const SideNav = (): JSX.Element | null => {
         </div>
         <div className="content w-full flex flex-col h-max pb-2 gap-2 items-center ">
           <Button
-            path={"/dashboard/settings"}
+            path={"/dashboard/Settings"}
             name={"Settings"}
             ImageUrl={"/icons/settings.svg"}
             ActiveImageUrl={"/icons/settings-blue.svg"}

@@ -16,7 +16,13 @@ export const Button = (props: ButtonProps): JSX.Element | null => {
   return (
     <button
       onClick={handleClick}
-      className={`flex items-center justify-between px-2 w-[95%] h-[60px]  gap-4 rounded-lg border-[1px]  ${
+      className={`flex items-center justify-between px-2 ${
+        name === "Job Management" ||
+        name === "Vendor Management" ||
+        name === "Customer Management"
+          ? "w-full"
+          : "w-[95%]"
+      } h-[60px] gap-4 rounded-lg border-[1px] ${
         isActive ? "bg-[#F3F8FE] border-primary" : "bg-white border-background"
       }`}
     >

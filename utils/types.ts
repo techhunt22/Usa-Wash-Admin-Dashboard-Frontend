@@ -85,6 +85,14 @@ export interface VendorData {
   phone:string,
 }
 
+export interface VendorData1 {
+  
+  name:string,
+  email:string,
+  phone:string,
+  status:string
+}
+
 export interface ViewDateRangeProps {
   onToggle:(isVisible:boolean)=>void
 }

@@ -7,8 +7,7 @@ export const Login = (): JSX.Element | null => {
     <main
       className="w-full min-h-screen font-roboto flex flex-col items-center gap-8 pt-10"
       style={{
-        backgroundImage:
-          "linear-gradient(rgba(243, 248, 254, 0.9), rgba(243, 248, 254, 0.9)), url(/images/background.png)",
+        backgroundImage: "url(/images/background.svg)",
       }}
     >
       <Image src={"/images/logo.png"} width={200} height={200} alt="logo.png" />

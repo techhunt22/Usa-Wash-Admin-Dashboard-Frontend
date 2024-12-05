@@ -32,7 +32,7 @@ export const CustomerTable = (): JSX.Element | null => {
         <div
           key={index}
           className={`
-         ${index % 2 === 0 ? "bg-white" : "bg-[#F9FAFC]"}
+         ${index % 2 === 0 ? "bg-[#F9FAFC]" : "bg-white"}
          table-data grid grid-cols-4 items-center gap-x-48 h-14 gap-10
          `}
         >
