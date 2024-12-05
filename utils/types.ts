@@ -89,5 +89,16 @@ export interface ViewDateRangeProps {
   onToggle:(isVisible:boolean)=>void
 }
 
+export interface SuspendProps { 
+  onToggle : (isVisible:boolean) => void
+}
+export interface ActiveProps { 
+  onToggle : (isVisible:boolean) => void
+}
+
+export interface DeleteProps { 
+  onToggle : (isVisible:boolean) => void
+}
+
 
 

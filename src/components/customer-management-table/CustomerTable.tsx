@@ -23,7 +23,7 @@ export const CustomerTable = (): JSX.Element | null => {
   return (
     <div className="table w-[98%] h-max pb-4 px-2 bg-white rounded-2xl ">
       <div className="table-headings font-roboto text-sm font-semibold grid text-darkGray grid-cols-4 gap-x-48 items-center h-14 px-2">
-        <p>Vendor Name</p>
+        <p>Customer Name</p>
         <p>Email</p>
         <p>Phone</p>
         <p>Actions</p>
@@ -48,7 +48,10 @@ export const CustomerTable = (): JSX.Element | null => {
           <p>{item?.email}</p>
           <p>{item?.phone}</p>
           <p>
-            <Button path={""} color={`text-primary`} />
+            <Button
+              path={"/dashboard/customer-details"}
+              color={`text-primary`}
+            />
           </p>
         </div>
       ))}

@@ -20,7 +20,7 @@ export const Button = (props: ButtonProps): JSX.Element | null => {
         isActive ? "bg-[#F3F8FE] border-primary" : "bg-white border-background"
       }`}
     >
-      <div className="flex gap-2">
+      <div className="flex gap-2  ">
         <Image
           src={isActive ? ActiveImageUrl : ImageUrl}
           width={25}

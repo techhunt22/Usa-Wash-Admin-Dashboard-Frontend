@@ -16,7 +16,7 @@ export const UserSelection = ({
 
   return (
     <div className="user-selection relative flex items-center justify-between w-full rounded-lg h-[60px] border-[1px] border-background text-sidenav">
-      <div className="flex gap-4">
+      <div className="flex gap-4 px-2">
         <Image src={"/icons/user.svg"} width={25} height={25} alt="users.svg" />
         <p className="text-[18px] text-sidenav">Users</p>
       </div>

@@ -27,7 +27,10 @@ export default {
        redBg:'#FF9F9D',
        JobActivity:'#9291A5',
        darkGray:'#333333',
-       tableData:'#1B2128'
+       tableData:'#1B2128',
+       customYellow:'#FBBA1D',
+       delete:'#DC3545'
+
 
        
       },
