@@ -1,7 +1,11 @@
 import { useCallback } from "react";
 import { ActiveProps } from "utils/types";
 
-export const Active = ({ onToggle }: ActiveProps): JSX.Element | null => {
+export const Active = ({
+  onToggle,
+  heading,
+  content,
+}: ActiveProps): JSX.Element | null => {
   const handleToggle = useCallback(() => onToggle(false), []);
   return (
     <main className="fixed inset-0 bg-black/10 flex items-center justify-center">
@@ -10,12 +14,10 @@ export const Active = ({ onToggle }: ActiveProps): JSX.Element | null => {
         style={{ backgroundImage: `url(/images/active.svg)` }}
       >
         <h1 className="font-poppins text-4xl text-primary font-medium">
-          Activate Customer
+          {heading}
         </h1>
         <p className="font-poppins text-xl font-normal text-center capitalize">
-          Are you sure you want to activate <br /> this Customer? The vendor
-          will <br /> regain access to their account and <br /> can start
-          postings jobs.
+          {content}
         </p>
         <div className="btns flex gap-2">
           <button

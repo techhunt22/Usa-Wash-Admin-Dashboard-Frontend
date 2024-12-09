@@ -1,23 +1,22 @@
 import { useCallback } from "react";
-import { SuspendProps } from "utils/types";
+import { ApproveProps } from "utils/types";
 
-export const Suspend = ({
+export const Approve = ({
   onToggle,
   heading,
   content,
-}: SuspendProps): JSX.Element | null => {
+}: ApproveProps): JSX.Element | null => {
   const handleToggle = useCallback(() => onToggle(false), []);
-
   return (
     <main className="fixed inset-0 bg-black/10 flex items-center justify-center">
       <div
-        className="container w-[528px] h-[465px] bg-white   rounded-xl flex flex-col items-center justify-center gap-4 "
-        style={{ backgroundImage: `url(/images/suspend.svg)` }}
+        className="container w-[518px] h-[368px] bg-white   rounded-xl flex flex-col items-center justify-center gap-4 "
+        style={{ backgroundImage: `url(/images/active.svg)` }}
       >
-        <h1 className="font-poppins text-4xl text-customYellow font-medium">
+        <h1 className="font-poppins text-4xl text-primary font-medium">
           {heading}
         </h1>
-        <p className="font-poppins text-xl capitalize font-normal text-center">
+        <p className="font-poppins text-xl font-normal text-center capitalize">
           {content}
         </p>
         <div className="btns flex gap-2">
@@ -27,8 +26,8 @@ export const Suspend = ({
           >
             Cancel
           </button>
-          <button className="w-[188px] h-[58px]  text-white bg-customYellow   font-roboto text-lg font-medium rounded-lg">
-            Suspend
+          <button className="w-[188px] h-[58px]  text-white bg-primary   font-roboto text-lg font-medium rounded-lg">
+            Active Customer
           </button>
         </div>
       </div>

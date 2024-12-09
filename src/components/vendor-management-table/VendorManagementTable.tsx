@@ -62,7 +62,7 @@ export const VendorManagementTable = (): JSX.Element | null => {
             {item?.status}
           </p>
           <p>
-            <Button path={""} color={`text-primary`} />
+            <Button path={"/dashboard/vendor-details"} color={`text-primary`} />
           </p>
         </div>
       ))}

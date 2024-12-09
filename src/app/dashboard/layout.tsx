@@ -1,5 +1,5 @@
 import { Avatar } from "@/components/avatar/Avatar";
-import { SideNav } from "@/components/side-nav/SideNav";
+import { SideNav } from "@/components/Side-Nav/SideNav";
 import React from "react";
 
 export default function DashboardLayout({

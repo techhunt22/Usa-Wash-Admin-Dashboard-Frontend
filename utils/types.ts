@@ -99,13 +99,25 @@ export interface ViewDateRangeProps {
 
 export interface SuspendProps { 
   onToggle : (isVisible:boolean) => void
+  heading:string,
+  content:React.ReactNode
 }
 export interface ActiveProps { 
   onToggle : (isVisible:boolean) => void
+  heading:string,
+  content:React.ReactNode
 }
 
 export interface DeleteProps { 
   onToggle : (isVisible:boolean) => void
+  heading:string,
+  content:React.ReactNode
+}
+
+export interface ApproveProps { 
+  onToggle : (isVisible:boolean) => void
+  heading:string,
+  content:React.ReactNode
 }
 
 

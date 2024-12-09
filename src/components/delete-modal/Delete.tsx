@@ -1,7 +1,11 @@
 import { useCallback } from "react";
 import { DeleteProps } from "utils/types";
 
-export const Delete = ({ onToggle }: DeleteProps): JSX.Element | null => {
+export const Delete = ({
+  onToggle,
+  content,
+  heading,
+}: DeleteProps): JSX.Element | null => {
   const handleToggle = useCallback(() => onToggle(false), []);
   return (
     <main className="fixed inset-0 bg-black/10 flex items-center justify-center">
@@ -10,11 +14,10 @@ export const Delete = ({ onToggle }: DeleteProps): JSX.Element | null => {
         style={{ backgroundImage: `url(/images/delete.svg)` }}
       >
         <h1 className="font-poppins text-4xl text-center text-delete font-medium">
-          Confirm Customer Deletion
+          {heading}
         </h1>
         <p className="font-poppins text-xl font-normal text-center capitalize">
-          Are you sure you want to delete <br /> this Customer? This action{" "}
-          <br /> cannot be undone.
+          {content}
         </p>
         <div className="btns flex gap-2">
           <button
