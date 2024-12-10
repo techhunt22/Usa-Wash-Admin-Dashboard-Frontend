@@ -107,6 +107,11 @@ export interface ActiveProps {
   heading:string,
   content:React.ReactNode
 }
+export interface MarkAsCompletedModal { 
+  onToggle : (isVisible:boolean) => void
+  heading:React.ReactNode
+  content:React.ReactNode
+}
 
 export interface DeleteProps { 
   onToggle : (isVisible:boolean) => void
