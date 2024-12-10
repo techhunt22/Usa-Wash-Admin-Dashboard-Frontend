@@ -6,7 +6,7 @@ export const Delete = ({
   content,
   heading,
 }: DeleteProps): JSX.Element | null => {
-  const handleToggle = useCallback(() => onToggle(false), []);
+  const handleToggle = useCallback(() => onToggle(false), [onToggle]);
   return (
     <main className="fixed inset-0 bg-black/10 flex items-center justify-center">
       <div

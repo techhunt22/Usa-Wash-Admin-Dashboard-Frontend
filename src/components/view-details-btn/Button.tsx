@@ -13,7 +13,7 @@ export const Button = ({
     if (path) {
       router.replace(path);
     }
-  }, [path]);
+  }, [path, router]);
 
   return (
     <button

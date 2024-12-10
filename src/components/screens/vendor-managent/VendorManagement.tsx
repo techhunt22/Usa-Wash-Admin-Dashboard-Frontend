@@ -1,7 +1,6 @@
 import { PendingApprovals } from "@/components/pending-approvals/PendingApprovals";
 import { SearchInput } from "@/components/search-input/SearchInput";
 import { Stats } from "@/components/stats/stats";
-import { VendorApprovalTable } from "@/components/vendor-approval-table/VendorApprovalTable";
 import { VendorManagementTable } from "@/components/vendor-management-table/VendorManagementTable";
 import Image from "next/image";
 
