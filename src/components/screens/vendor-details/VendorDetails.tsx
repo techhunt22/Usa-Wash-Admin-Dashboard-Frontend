@@ -3,6 +3,7 @@ import { Active } from "@/components/active-modal/Active";
 import { Approve } from "@/components/approve-modal/Aprrove";
 import { Delete } from "@/components/delete-modal/Delete";
 import { Suspend } from "@/components/suspendModal/SuspendModal";
+import { Testimony } from "@/components/testimony/Testimony";
 import { Details } from "@/components/vendor-details/Details";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
@@ -194,7 +195,7 @@ export const VendorDetails = (): JSX.Element | null => {
             </div>
           </div>
         </div>
-        <div className="reviews w-[40%] h-max pb-4  bg-white shadow-md rounded-xl flex flex-col items-center gap-2 pt-10">
+        <div className="reviews w-[40%] h-max pb-4  bg-white shadow-md rounded-xl flex flex-col items-center gap-6 pt-10">
           <div className="flex flex-col items-center">
             <p className="font-roboto font-medium text-base ">Overall Rating</p>
             <p className="font-roboto text-[70px] font-bold">4.5</p>
@@ -208,78 +209,10 @@ export const VendorDetails = (): JSX.Element | null => {
               Based on 135 Reviews
             </p>
           </div>
-          <div className="testimony w-[327px] h-[143px] border-[1px] border-background flex gap-2 rounded-xl">
-            <div className="image w-[100px] ">
-              <Image
-                src={"/images/shape.svg"}
-                width={50}
-                height={50}
-                alt="shape.svg"
-              />
-            </div>
-            <div className="content flex flex-col justify-between">
-              <p className="font-roboto text-xs font-bold">Kurt Mullins</p>
-              <p className="font-roboto text-[10px] font-normal">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
-              </p>
-              <Image
-                src={"/images/reviews.svg"}
-                width={101}
-                height={20}
-                alt="reviews.svg"
-              />
-              <p className="font-roboto text-[8px] font-normal">8 Days ago</p>
-            </div>
-          </div>
-          <div className="testimony w-[327px] h-[143px] border-[1px] border-background flex gap-2 rounded-xl">
-            <div className="image w-[100px] ">
-              <Image
-                src={"/images/shape.svg"}
-                width={50}
-                height={50}
-                alt="shape.svg"
-              />
-            </div>
-            <div className="content flex flex-col justify-between">
-              <p className="font-roboto text-xs font-bold">Kurt Mullins</p>
-              <p className="font-roboto text-[10px] font-normal">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
-              </p>
-              <Image
-                src={"/images/reviews.svg"}
-                width={101}
-                height={20}
-                alt="reviews.svg"
-              />
-              <p className="font-roboto text-[8px] font-normal">8 Days ago</p>
-            </div>
-          </div>
-          <div className="testimony w-[327px] h-[143px] border-[1px] border-background flex gap-2 rounded-xl">
-            <div className="image w-[100px] ">
-              <Image
-                src={"/images/shape.svg"}
-                width={50}
-                height={50}
-                alt="shape.svg"
-              />
-            </div>
-            <div className="content flex flex-col justify-between">
-              <p className="font-roboto text-xs font-bold">Kurt Mullins</p>
-              <p className="font-roboto text-[10px] font-normal">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
-              </p>
-              <Image
-                src={"/images/reviews.svg"}
-                width={101}
-                height={20}
-                alt="reviews.svg"
-              />
-              <p className="font-roboto text-[8px] font-normal">8 Days ago</p>
-            </div>
-          </div>
+
+          <Testimony />
+          <Testimony />
+          <Testimony />
         </div>
       </div>
       {deleteModal && (
