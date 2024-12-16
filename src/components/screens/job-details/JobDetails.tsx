@@ -104,12 +104,12 @@ export const JobDetails = (): JSX.Element | null => {
               Job Description{" "}
             </h1>
             <p className="font-roboto font-normal text-lg text-darkGray leading-8 text-justify">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry standard dummy text
               ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. Lorem Ipsum is
+              type and scrambled it to make a type specimen book. Lorem Ipsum is
               simply dummy text of the printing and typesetting industry. Lorem
-              Ipsum has been the industry's standard dummy text ever since the
+              Ipsum has been the industry standard dummy text ever since the
               1500s, when an unknown printer took a galley of type and scrambled
               it to make a type specimen book.
             </p>
