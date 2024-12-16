@@ -70,7 +70,7 @@ export const JobTable = (): JSX.Element | null => {
           <p className="truncate">{item?.location}</p>
           <p>{item?.date}</p>
           <p>
-            <Button color="text-primary" path="" />
+            <Button color="text-primary" path="/dashboard/job-details" />
           </p>
         </div>
       ))}

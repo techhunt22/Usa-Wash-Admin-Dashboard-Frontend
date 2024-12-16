@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export const Details = (): JSX.Element | null => {
   return (
-    <div className="customer-details w-full h-[320px] bg-white rounded-xl flex">
+    <div className="vendor-details w-full h-[320px] bg-white rounded-xl flex">
       <div className="image w-[40%]  flex items-center justify-center">
         <Image
           src={"/images/vendor-details.svg"}

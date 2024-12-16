@@ -1,4 +1,3 @@
-import { JobActivity } from "@/components/job-activity/JobActivity";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -29,13 +28,15 @@ export default {
        darkGray:'#333333',
        tableData:'#1B2128',
        customYellow:'#FBBA1D',
-       delete:'#DC3545'
+       delete:'#DC3545',
+      
 
 
        
       },
       fontFamily: {
         roboto: ["Roboto"], 
+        robotoMedium: ["RobotoMedium"], 
         poppins:["Poppins"],
         montserrat:["Montserrat"]
       },
