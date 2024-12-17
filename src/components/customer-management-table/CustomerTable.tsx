@@ -20,6 +20,7 @@ export const CustomerTable = (): JSX.Element | null => {
     () => vendorDummyData?.slice(startIndex, startIndex + ITEMS_PER_PAGE),
     [startIndex]
   );
+
   return (
     <div className="table w-[98%] h-max pb-4 px-2 bg-white rounded-2xl ">
       <div className="table-headings font-roboto text-sm font-semibold grid text-darkGray grid-cols-4 gap-x-48 items-center h-14 px-2">
@@ -32,7 +33,7 @@ export const CustomerTable = (): JSX.Element | null => {
         <div
           key={index}
           className={`
-         ${index % 2 === 0 ? "bg-[#F9FAFC]" : "bg-white"}
+         ${index % 2 === 0 ? "bg-tableBg" : "bg-white"}
          table-data grid grid-cols-4 items-center gap-x-48 h-14 gap-10
          `}
         >

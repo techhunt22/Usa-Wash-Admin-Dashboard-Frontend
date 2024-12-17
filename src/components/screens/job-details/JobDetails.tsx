@@ -2,7 +2,6 @@
 import { Delete } from "@/components/delete-modal/Delete";
 import { CustomerDetails } from "@/components/job-customer-details/CustomerDetails";
 import { VendorDetails } from "@/components/job-vendor-details/VendorDetails";
-
 import { MarkAsCompleted } from "@/components/mark-as-completed-modal/MarkAsCompletedModal";
 import { Offers } from "@/components/offers/Offers";
 import Image from "next/image";
@@ -13,10 +12,13 @@ export const JobDetails = (): JSX.Element | null => {
     useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
+  //Mark As Completed Modal
   const handleMarkAsCompleted = useCallback(
     () => setMarkAsCompletedModal(true),
     []
   );
+
+  //Delete Modal
   const handleDelete = useCallback(() => setDeleteModal(true), []);
 
   return (

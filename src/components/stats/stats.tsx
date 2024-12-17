@@ -14,7 +14,7 @@ export const Stats = ({
     >
       <div className="content w-[50%] flex flex-col items-center gap-4">
         <div className="flex flex-col ">
-          <p className="text-sm font-roboto font-normal text-[#333333]">
+          <p className="text-sm font-roboto font-normal text-darkGray">
             Statistics
           </p>
           <h1 className="font-roboto font-semibold text-lg">{name}</h1>
@@ -23,7 +23,7 @@ export const Stats = ({
           <h1 className="text-[#1E1B39] font-bold font-roboto text-4xl">
             {number}
           </h1>
-          <Button path={""} color={"text-[#2F74FA]"} />
+          <Button path={""} color={"text-primary"} />
         </div>
       </div>
       <div className="Image w-[50%] flex">

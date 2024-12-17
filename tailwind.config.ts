@@ -29,6 +29,7 @@ export default {
        tableData:'#1B2128',
        customYellow:'#FBBA1D',
        delete:'#DC3545',
+       tableBg:'#F9FAFC'
       
 
 

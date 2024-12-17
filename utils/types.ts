@@ -12,7 +12,6 @@ export interface PasswordInputProps {
   height:string,
 }
 
-
 export interface ButtonProps  {
     path: string;
     name: string;
@@ -102,11 +101,13 @@ export interface SuspendProps {
   heading:string,
   content:React.ReactNode
 }
+
 export interface ActiveProps { 
   onToggle : (isVisible:boolean) => void
   heading:string,
   content:React.ReactNode
 }
+
 export interface MarkAsCompletedModal { 
   onToggle : (isVisible:boolean) => void
   heading:React.ReactNode

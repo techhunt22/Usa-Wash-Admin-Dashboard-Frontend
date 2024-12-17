@@ -1,5 +1,7 @@
 import { VendorManagement } from "@/components/screens/vendor-managent/VendorManagement";
 
-export default function page() {
+const page = (): JSX.Element | null => {
   return <VendorManagement />;
-}
+};
+
+export default page;

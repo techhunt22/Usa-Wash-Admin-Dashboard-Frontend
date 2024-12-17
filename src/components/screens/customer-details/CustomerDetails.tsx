@@ -19,8 +19,13 @@ export const CustomerDetails = (): JSX.Element | null => {
     []
   );
 
+  //Suspend Modal
   const handleSuspend = useCallback(() => setSuspendModal(true), []);
+
+  //Delete Modal
   const handleDelete = useCallback(() => setDeleteModal(true), []);
+
+  //Active Modal
   const handleActive = useCallback(() => {
     setActiveModal(true);
     setShowBtn(false);

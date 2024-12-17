@@ -21,17 +21,25 @@ export const VendorDetails = (): JSX.Element | null => {
     () => setShowRejectBtn((prev: boolean) => !prev),
     []
   );
+
   const handleActiveChevron = useCallback(
     () => setShowActiveBtn((prev: boolean) => !prev),
     []
   );
 
+  //Approve Modal
   const handleApprove = useCallback(() => setApproveModal(true), []);
+
+  //ActiveModal
   const handleActive = useCallback(() => {
     setActiveModal(true);
     setShowActiveBtn(false);
   }, []);
+
+  //Suspend Modal
   const handleSuspend = useCallback(() => setSuspendModal(true), []);
+
+  //Delete Modal
   const handleDelete = useCallback(() => setDeleteModal(true), []);
 
   return (
@@ -210,6 +218,7 @@ export const VendorDetails = (): JSX.Element | null => {
             </p>
           </div>
 
+          <Testimony />
           <Testimony />
           <Testimony />
           <Testimony />

@@ -1,5 +1,7 @@
 import { JobDetails } from "@/components/screens/job-details/JobDetails";
 
-export default function page() {
+const page = (): JSX.Element | null => {
   return <JobDetails />;
-}
+};
+
+export default page;

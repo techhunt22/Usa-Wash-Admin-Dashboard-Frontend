@@ -34,7 +34,7 @@ export const VendorApprovals = (): JSX.Element | null => {
             onClick={() => {
               setIsModalVisible(true);
             }}
-            className="w-[214px] h-[54px] text-sidenav font-roboto text-[16px] flex justify-center gap-2 items-center font-normal bg-white rounded-xl "
+            className="w-[214px] h-[54px] text-sidenav font-roboto text-base flex justify-center gap-2 items-center font-normal bg-white rounded-xl "
           >
             <Image
               src={"/images/date-range.svg"}

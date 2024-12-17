@@ -1,5 +1,7 @@
 import { VendorApprovals } from "@/components/screens/vendor-approvals/VendorApprovals";
 
-export default function page() {
+const page = (): JSX.Element | null => {
   return <VendorApprovals />;
-}
+};
+
+export default page;

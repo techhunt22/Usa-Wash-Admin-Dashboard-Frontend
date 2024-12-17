@@ -33,7 +33,7 @@ export const VendorManagementTable = (): JSX.Element | null => {
         <div
           key={index}
           className={`
-         ${index % 2 === 0 ? "bg-[#F9FAFC]" : "bg-white"}
+         ${index % 2 === 0 ? "bg-tableBg" : "bg-white"}
          table-data grid grid-cols-5 items-center gap-x-48 h-14 gap-10 text-sm font-roboto font-normal
          `}
         >

@@ -37,7 +37,7 @@ export const JobTable = (): JSX.Element | null => {
         <div
           key={index}
           className={`table-data font-roboto text-sm font-normal text-tableData grid grid-cols-8 items-center h-14 px-2 ${
-            index % 2 === 0 ? "bg-[#F9FAFC]" : "bg-white"
+            index % 2 === 0 ? "bg-tableBg" : "bg-white"
           }`}
         >
           <p>{item?.id}</p>

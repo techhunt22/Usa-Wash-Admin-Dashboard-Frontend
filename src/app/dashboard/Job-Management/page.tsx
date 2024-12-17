@@ -1,5 +1,7 @@
 import { JobManagement } from "@/components/screens/job-management/JobManagement";
 
-export default function page() {
+const page = (): JSX.Element | null => {
   return <JobManagement />;
-}
+};
+
+export default page;
