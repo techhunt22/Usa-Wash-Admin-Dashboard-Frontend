@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import React from "react";
+import { ReactQueryProvider } from "utils/ReactQueryProvider";
+import { Provider } from "react-redux";
+import { store } from "../../redux/store";
+import { ReduxProvider } from "utils/ReduxProvider";
 
 export const metadata: Metadata = {
   title: "USA-WASH",
@@ -13,7 +18,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="w-full h-full bg-background ">{children}</body>
+      <body className="w-full h-full bg-background ">
+        <ReduxProvider>
+          <ReactQueryProvider>
+            <div>{children}</div>
+          </ReactQueryProvider>
+        </ReduxProvider>
+      </body>
     </html>
   );
 }

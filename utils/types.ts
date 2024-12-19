@@ -3,7 +3,7 @@ export interface InputProps {
   placeholder:string,
   width:string,
   height:string,
-  type:string
+  type:string,
 }
 
 export interface PasswordInputProps {
@@ -39,25 +39,28 @@ export interface ViewDetailsProps {
   color:string,
 }
 
-interface Status {
-  text: string;
-  color: string;
-}
+export interface Job {
+    id: number;
+    user_id: number;
+    service_id: number;
+    job_title: string;
+    location: string;
+    budget: number;
+    status: string;
+    scheduled_time: string;
+    job_description: string;
+    created_at: string;
+    updated_at: string;
+    user: {
+      id: number;
+      full_name: string;
+    };
+    service: {
+      id: number;
+      name: string;
+    };
+  }
 
-interface Customer {
-  name: string;
-  avatar: string;
-}
-
-export interface ServiceData {
-  id: string;
-  service: string;
-  customer: Customer;
-  price: string;
-  status: Status;
-  location: string;
-  date: string;
-}
 
 export interface JobFilterProp {
   onToggle : (isVisible:boolean)=> void
@@ -126,5 +129,22 @@ export interface ApproveProps {
   content:React.ReactNode
 }
 
+export interface AdminLoginProps {
+  email:string
+  password:string
+}
 
+export interface ApiError extends Error {
+  response?: {
+    data?: {
+      errors?: {
+        messages?: string[];
+      };
+    };
+  };
+}
+
+export interface AuthState{
+  token:string|null
+}
 

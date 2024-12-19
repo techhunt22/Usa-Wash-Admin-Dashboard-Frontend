@@ -7,16 +7,21 @@ export const PasswordInput = ({
   width,
   height,
   name,
-}: PasswordInputProps): JSX.Element | null => {
+  onChange,
+}: PasswordInputProps & {
+  onChange: (value: string) => void;
+}): JSX.Element | null => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (
     <div className="input flex flex-col gap-1 relative">
       <p className="font-roboto text-sm font-normal pl-3 ">{name}</p>
       <input
+        required
         type={showPassword ? "text" : "password"}
         placeholder="**********"
         className={`${width} outline-none relative ${height} px-2 rounded-2xl border-[1px] border-[#ADADAD]`}
+        onChange={(e) => onChange(e.target.value)}
       />
       <button
         type="button"

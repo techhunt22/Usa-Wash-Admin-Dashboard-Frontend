@@ -6,14 +6,17 @@ export const Input = ({
   name,
   type,
   placeholder,
-}: InputProps): JSX.Element | null => {
+  onChange,
+}: InputProps & { onChange: (value: string) => void }): JSX.Element | null => {
   return (
     <div className={`input ${width} ${height} flex flex-col gap-1`}>
-      <p className="font-roboto text-sm font-normal pl-3 ">{name}</p>
+      <p className="font-roboto text-sm font-normal pl-3">{name}</p>
       <input
-        type={`${type}`}
+        required
+        type={type}
         className={`${width} outline-none ${height} border-[1px] border-customGray rounded-xl text-sm font-roboto font-medium px-4`}
-        placeholder={`${placeholder}`}
+        placeholder={placeholder}
+        onChange={(e) => onChange(e.target.value)}
       />
     </div>
   );

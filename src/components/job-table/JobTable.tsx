@@ -2,24 +2,25 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import { Button } from "../view-details-btn/Button";
-import { dummyData } from "../../../utils/data";
+import { useFetchData } from "../../../hooks/fetchData";
+import { Job } from "utils/types";
 
 const ITEMS_PER_PAGE = 7;
 
 export const JobTable = (): JSX.Element | null => {
   const [currentPage, setCurrentPage] = useState(1);
+  const { data, isLoading, error } = useFetchData(`/api/v1/jobs`, currentPage);
 
-  const totalPages = useMemo(
-    () => Math.ceil(dummyData.length / ITEMS_PER_PAGE),
-    []
-  );
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
-  const paginatedData = useMemo(
-    () => dummyData.slice(startIndex, startIndex + ITEMS_PER_PAGE),
-    [startIndex]
-  );
+  const jobs: Job[] = data?.data?.jobs?.data || [];
+  const totalPages = data?.data?.jobs?.last_page || 1;
 
   return (
     <div className="table w-full h-max pb-4 bg-white rounded-xl ">
@@ -33,42 +34,42 @@ export const JobTable = (): JSX.Element | null => {
         <p>Scheduled Date & Time</p>
         <p>Actions</p>
       </div>
-      {paginatedData.map((item, index) => (
+      {jobs?.map((job: Job, index: number) => (
         <div
-          key={index}
+          key={job.id}
           className={`table-data font-roboto text-sm font-normal text-tableData grid grid-cols-8 items-center h-14 px-2 ${
             index % 2 === 0 ? "bg-tableBg" : "bg-white"
           }`}
         >
-          <p>{item?.id}</p>
-          <p>{item?.service}</p>
+          <p>{job?.id}</p>
+          <p>{job?.service.name}</p>
           <p className="flex gap-2 items-center">
             <Image
-              src={item.customer.avatar}
+              src="/images/avatar.svg"
               width={38}
               height={38}
               alt="avatar.svg"
             />
-            {item?.customer?.name}
+            {job?.user?.full_name}
           </p>
-          <p>{item?.price}</p>
+          <p>{job?.budget}</p>
           <p
             className={`w-[100px] h-[25px] ${
-              item?.status?.text === "Completed"
+              job?.status === "Completed"
                 ? "text-completed bg-completed/10"
-                : item.status.text === "In Progress"
+                : job.status === "in-progress"
                 ? "text-progress bg-progress/10"
-                : item.status.text === "Not Bid"
+                : job.status === "open"
                 ? "text-notBid bg-notBid/10"
-                : item.status.text === "Bidding"
+                : job.status === "Bidding"
                 ? "text-bidding bg-bidding/10"
                 : ""
             } flex items-center justify-center rounded-lg`}
           >
-            {item?.status?.text}
+            {job?.status}
           </p>
-          <p className="truncate">{item?.location}</p>
-          <p>{item?.date}</p>
+          <p className="truncate">{job.location}</p>
+          <p>{job?.scheduled_time}</p>
           <p>
             <Button color="text-primary" path="/dashboard/job-details" />
           </p>
