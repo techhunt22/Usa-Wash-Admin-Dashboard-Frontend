@@ -9,6 +9,7 @@ export const JobManagement = (): JSX.Element | null => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
+  console.log(searchQuery);
   const handleModal = useCallback(() => {
     setModalVisible(true);
   }, []);
@@ -33,7 +34,7 @@ export const JobManagement = (): JSX.Element | null => {
           </button>
         </div>
       </div>
-      <JobTable searchQuery={searchQuery} />
+      <JobTable />
       {modalVisible && <JobFilter onToggle={setModalVisible} />}
     </main>
   );

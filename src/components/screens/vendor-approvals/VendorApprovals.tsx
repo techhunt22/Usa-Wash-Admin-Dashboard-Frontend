@@ -9,6 +9,8 @@ import { useState } from "react";
 
 export const VendorApprovals = (): JSX.Element | null => {
   const [modalVisible, setIsModalVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  console.log(searchQuery);
   return (
     <main className="w-full h-full pb-10 ">
       <div className="stats flex flex-wrap gap-4 mt-10">
@@ -29,7 +31,7 @@ export const VendorApprovals = (): JSX.Element | null => {
       <div className="header w-full h-20 flex items-center justify-between px-8 mt-4 ">
         <h1 className="font-roboto font-semibold text-2xl">Vendor Approvals</h1>
         <div className="option w-[40%] flex items-center gap-2 ">
-          <SearchInput />
+          <SearchInput setSearchResult={setSearchQuery} />
           <button
             onClick={() => {
               setIsModalVisible(true);

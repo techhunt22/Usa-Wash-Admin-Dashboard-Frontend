@@ -56,6 +56,7 @@ export const EditProfile = (): JSX.Element | null => {
         placeholder="Jhon Cosby"
         name={`Name`}
         type={`text`}
+        onChange={() => {}}
       />
       <div className="option-btn flex gap-2 mt-28 ">
         <button className="w-[124px] h-[58px] border-[1px] border-primary text-base font-roboto font-medium text-primary rounded-xl">

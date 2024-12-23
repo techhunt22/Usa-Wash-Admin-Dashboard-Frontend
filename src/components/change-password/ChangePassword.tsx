@@ -10,16 +10,19 @@ export const ChangePassword = (): JSX.Element | null => {
         height={`h-[60px]`}
         width={`w-[320px]`}
         name={`Old Password`}
+        onChange={(value: string) => console.log(value)}
       />
       <PasswordInput
         height={`h-[60px]`}
         width={`w-[320px]`}
         name={`New Password`}
+        onChange={(value: string) => console.log(value)}
       />
       <PasswordInput
         height={`h-[60px]`}
         width={`w-[320px]`}
         name={`Confirm Password`}
+        onChange={(value: string) => console.log(value)}
       />
       <div className="option-btn flex gap-2 mt-20 ">
         <button className="w-[124px] h-[58px] border-[1px] border-primary text-base font-roboto font-medium text-primary rounded-xl">
