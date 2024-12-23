@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { ChangeEvent } from "react";
 import { SearchInputProps } from "utils/types";
 
 export const SearchInput = ({
@@ -9,6 +8,7 @@ export const SearchInput = ({
   //   setSearchResult(e.target.value);
   // };
 
+  console.log(setSearchResult);
   return (
     <div className="search w-[80%] bg-white justify-center h-[60px] flex items-center rounded-xl gap-2">
       <input

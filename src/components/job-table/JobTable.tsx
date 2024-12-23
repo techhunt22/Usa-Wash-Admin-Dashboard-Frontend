@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "../view-details-btn/Button";
 import { useFetchData } from "../../../hooks/fetchData";
 import { Job } from "utils/types";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setJobs } from "../../../redux/features/jobTableSlice";
 
 export const JobTable = (): JSX.Element | null => {
