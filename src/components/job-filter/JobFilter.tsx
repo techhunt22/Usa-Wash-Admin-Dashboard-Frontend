@@ -1,11 +1,20 @@
+"use client";
 import React, { useCallback, useMemo, useState } from "react";
 import { JobFilterProp } from "../../../utils/types";
 import { Slider } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { filterJobs } from "../../../redux/features/jobTableSlice";
 
 export const JobFilter = ({ onToggle }: JobFilterProp): JSX.Element | null => {
-  const [range, setRange] = useState<number[]>([700, 3000]);
+  const [range, setRange] = useState<number[]>([10, 3000]);
+  const [jobType, setJobType] = useState<string>("");
+  const [status, setStatus] = useState<string>("");
 
-  const rangeMin = 700;
+  const jobs = useSelector((state: RootState) => state?.jobTable?.jobs);
+  const dispatch = useDispatch();
+
+  const rangeMin = 10;
   const rangeMax = 3000;
 
   const handleRangeChange = useCallback(
@@ -17,6 +26,28 @@ export const JobFilter = ({ onToggle }: JobFilterProp): JSX.Element | null => {
 
   const minValue = useMemo(() => range[0], [range]);
   const maxValue = useMemo(() => range[1], [range]);
+
+  const jobTypes = useMemo(
+    () => Array.from(new Set(jobs.map((job) => job.job_title))),
+    [jobs]
+  );
+  const statuses = useMemo(
+    () => Array.from(new Set(jobs.map((job) => job.status))),
+    [jobs]
+  );
+
+  const handleApplyFilter = () => {
+    dispatch(
+      filterJobs({
+        searchQuery: "",
+        jobType,
+        minBudget: minValue,
+        maxBudget: maxValue,
+        status,
+      })
+    );
+    onToggle(false);
+  };
 
   return (
     <main className="fixed inset-0 bg-black/10 flex items-center justify-center">
@@ -41,8 +72,17 @@ export const JobFilter = ({ onToggle }: JobFilterProp): JSX.Element | null => {
         <div className="filter-options flex flex-col px-10 items-center gap-8 mt-4">
           <div className="job-type flex flex-col gap-2">
             <h1 className="font-roboto text-sm font-normal">Job Type:</h1>
-            <select className="w-[370px] h-[58px] text-filterText text-xs outline-none font-roboto bg-customSilver rounded-lg">
+            <select
+              className="w-[370px] h-[58px] text-filterText text-xs outline-none font-roboto bg-customSilver rounded-lg"
+              value={jobType}
+              onChange={(e) => setJobType(e.target.value)}
+            >
               <option value="">Job Type</option>
+              {jobTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -81,11 +121,23 @@ export const JobFilter = ({ onToggle }: JobFilterProp): JSX.Element | null => {
 
           <div className="Status flex flex-col gap-2">
             <h1 className="font-roboto text-sm font-normal">Status</h1>
-            <select className="w-[370px] h-[58px] text-filterText text-xs outline-none font-roboto bg-customSilver rounded-lg">
+            <select
+              className="w-[370px] h-[58px] text-filterText text-xs outline-none font-roboto bg-customSilver rounded-lg"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+            >
               <option value="">Status</option>
+              {statuses.map((status) => (
+                <option key={status} value={status}>
+                  {status}
+                </option>
+              ))}
             </select>
           </div>
-          <button className="w-[147px] h-[57px] bg-primary text-white font-roboto text-lg font-medium rounded-xl">
+          <button
+            onClick={handleApplyFilter}
+            className="w-[147px] h-[57px] bg-primary text-white font-roboto text-lg font-medium rounded-xl"
+          >
             Apply Filter
           </button>
         </div>

@@ -7,7 +7,7 @@ import { useAdminLogin } from "utils/api";
 import { useRouter } from "next/navigation";
 import { ApiError } from "utils/types";
 import { useDispatch } from "react-redux";
-import { setToken } from "../../../redux/features/authSlice";
+import { setToken, setData } from "../../../redux/features/authSlice";
 
 export const Login = (): JSX.Element | null => {
   const router = useRouter();
@@ -33,6 +33,11 @@ export const Login = (): JSX.Element | null => {
     mutate(items, {
       onSuccess: (data) => {
         dispatch(setToken(data?.data?.access_token));
+        const payload = {
+          name: data?.data?.user?.full_name,
+          image: data?.data?.user?.profile_pic,
+        };
+        dispatch(setData(payload));
         setItems({ email: "", password: "" });
         router.push("/dashboard");
       },

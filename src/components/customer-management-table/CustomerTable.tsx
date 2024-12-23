@@ -1,25 +1,33 @@
 "use client";
 import { Button } from "@/components/view-details-btn/Button";
+import { useFetchUserData } from "hooks/fetchUsers";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { vendorDummyData } from "utils/data";
-
-const ITEMS_PER_PAGE = 7;
+import { setUsers } from "../../../redux/features/userSlice";
+import { useDispatch } from "react-redux";
+import { UsersSlice } from "utils/types";
 
 export const CustomerTable = (): JSX.Element | null => {
   const [currentPage, setCurrentPage] = useState(1);
+  const { data } = useFetchUserData("/api/v1/admin/users", currentPage);
+  const dispatch = useDispatch();
+
+  if (data) {
+    dispatch(setUsers(data?.data?.users?.data));
+  }
+  console.log(data);
+  const customers: UsersSlice[] = data?.data?.users?.data?.filter(
+    (user: UsersSlice) => user.role === "customer"
+  );
 
   const totalPages = useMemo(
-    () => Math.ceil(vendorDummyData.length / ITEMS_PER_PAGE),
-    []
+    () => Math.ceil(data?.data?.total_users / data?.data?.users?.per_page),
+    [data]
   );
 
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-
-  const paginatedData = useMemo(
-    () => vendorDummyData?.slice(startIndex, startIndex + ITEMS_PER_PAGE),
-    [startIndex]
-  );
+  console.log(customers);
+  console.log(totalPages);
+  console.log(data);
 
   return (
     <div className="table w-[98%] h-max pb-4 px-2 bg-white rounded-2xl ">
@@ -29,7 +37,7 @@ export const CustomerTable = (): JSX.Element | null => {
         <p>Phone</p>
         <p>Actions</p>
       </div>
-      {paginatedData?.map((item, index) => (
+      {customers?.map((item, index) => (
         <div
           key={index}
           className={`
@@ -44,10 +52,10 @@ export const CustomerTable = (): JSX.Element | null => {
               height={38}
               alt="avatar.svg"
             />
-            {item?.name}
+            {item?.full_name}
           </p>
           <p>{item?.email}</p>
-          <p>{item?.phone}</p>
+          <p>{item?.phone_number}</p>
           <p>
             <Button
               path={"/dashboard/customer-details"}

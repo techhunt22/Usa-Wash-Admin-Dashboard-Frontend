@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import React from "react";
 import { ReactQueryProvider } from "utils/ReactQueryProvider";
-import { Provider } from "react-redux";
-import { store } from "../../redux/store";
 import { ReduxProvider } from "utils/ReduxProvider";
+import { ProtectedRoutes } from "utils/ProtectedRoutes";
 
 export const metadata: Metadata = {
   title: "USA-WASH",
@@ -21,7 +20,9 @@ export default function RootLayout({
       <body className="w-full h-full bg-background ">
         <ReduxProvider>
           <ReactQueryProvider>
-            <div>{children}</div>
+            <ProtectedRoutes>
+              <div>{children}</div>
+            </ProtectedRoutes>
           </ReactQueryProvider>
         </ReduxProvider>
       </body>

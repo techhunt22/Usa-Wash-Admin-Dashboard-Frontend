@@ -54,12 +54,19 @@ export interface Job {
     user: {
       id: number;
       full_name: string;
+      profile_pic:string
     };
     service: {
       id: number;
       name: string;
     };
   }
+
+export interface jobTableSlice{
+    jobs:Job[]
+    filteredJobs:Job[]
+    totalPages:number
+}
 
 
 export interface JobFilterProp {
@@ -145,6 +152,35 @@ export interface ApiError extends Error {
 }
 
 export interface AuthState{
-  token:string|null
+  token:string|null,
+  data:{
+    name:string|null,
+  image:string|null
+  }
 }
 
+export interface SearchInputProps {
+  setSearchResult:(searchQuery:string)=>void;
+}
+
+export type JobTableProps= {
+  searchQuery:string
+}
+
+
+export  interface UsersSlice {
+  id:number,
+  full_name:string,
+  email:string,
+  phone_number:string,
+  role:string,
+  location:string,
+  business_information:string,
+  profile_pic:string,
+  status:string,
+  onesignal_player_id:string|null,
+}
+
+export interface User {
+  user:UsersSlice[]
+}

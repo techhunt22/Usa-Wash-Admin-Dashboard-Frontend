@@ -1,15 +1,20 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { Button } from "../view-details-btn/Button";
 import { useFetchData } from "../../../hooks/fetchData";
 import { Job } from "utils/types";
-
-const ITEMS_PER_PAGE = 7;
+import { useDispatch, useSelector } from "react-redux";
+import { setJobs } from "../../../redux/features/jobTableSlice";
 
 export const JobTable = (): JSX.Element | null => {
   const [currentPage, setCurrentPage] = useState(1);
   const { data, isLoading, error } = useFetchData(`/api/v1/jobs`, currentPage);
+  const dispatch = useDispatch();
+
+  if (data) {
+    dispatch(setJobs(data?.data?.jobs?.data));
+  }
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -20,11 +25,13 @@ export const JobTable = (): JSX.Element | null => {
   }
 
   const jobs: Job[] = data?.data?.jobs?.data || [];
-  const totalPages = data?.data?.jobs?.last_page || 1;
+  const totalPages = Math.ceil(
+    data?.data?.total_jobs / data?.data?.jobs?.per_page
+  );
 
   return (
-    <div className="table w-full h-max pb-4 bg-white rounded-xl ">
-      <div className="table-headings font-roboto text-sm font-semibold grid text-darkGray grid-cols-8 items-center h-14 px-2">
+    <div className="table w-full h-max pb-4 bg-white rounded-xl">
+      <div className="table-headings font-roboto text-sm font-semibold grid text-darkGray grid-cols-[10%,16%,16%,7%,10%,15%,15%,10%] items-center h-14 px-2">
         <p>Job ID</p>
         <p>Job Type</p>
         <p>Customer Name</p>
@@ -37,12 +44,12 @@ export const JobTable = (): JSX.Element | null => {
       {jobs?.map((job: Job, index: number) => (
         <div
           key={job.id}
-          className={`table-data font-roboto text-sm font-normal text-tableData grid grid-cols-8 items-center h-14 px-2 ${
+          className={`table-data font-roboto text-sm font-normal text-tableData grid grid-cols-[10%,16%,16%,7%,10%,15%,15%,10%] items-center h-14 px-2 ${
             index % 2 === 0 ? "bg-tableBg" : "bg-white"
           }`}
         >
           <p>{job?.id}</p>
-          <p>{job?.service.name}</p>
+          <p className="truncate">{job?.service.name}</p>
           <p className="flex gap-2 items-center">
             <Image
               src="/images/avatar.svg"
@@ -50,12 +57,16 @@ export const JobTable = (): JSX.Element | null => {
               height={38}
               alt="avatar.svg"
             />
+            {/* src={
+                job?.user?.profile_pic?.split("profile_pics/")[1] ||
+                "/avatar.svg"
+              } */}
             {job?.user?.full_name}
           </p>
-          <p>{job?.budget}</p>
+          <p>${job?.budget}</p>
           <p
             className={`w-[100px] h-[25px] ${
-              job?.status === "Completed"
+              job?.status === "completed"
                 ? "text-completed bg-completed/10"
                 : job.status === "in-progress"
                 ? "text-progress bg-progress/10"
@@ -68,7 +79,7 @@ export const JobTable = (): JSX.Element | null => {
           >
             {job?.status}
           </p>
-          <p className="truncate">{job.location}</p>
+          <p className="truncate">{job?.location}</p>
           <p>{job?.scheduled_time}</p>
           <p>
             <Button color="text-primary" path="/dashboard/job-details" />

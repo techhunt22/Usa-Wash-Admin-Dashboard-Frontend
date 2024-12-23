@@ -7,6 +7,7 @@ import { useCallback, useState } from "react";
 
 export const JobManagement = (): JSX.Element | null => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const handleModal = useCallback(() => {
     setModalVisible(true);
@@ -17,7 +18,7 @@ export const JobManagement = (): JSX.Element | null => {
       <div className="headings w-full h-20  flex items-center justify-between px-4">
         <h1 className="font-roboto text-xl font-semibold">All Jobs</h1>
         <div className="options w-[40%] h-full  flex  items-center justify-end gap-2">
-          <SearchInput />
+          <SearchInput setSearchResult={setSearchQuery} />
           <button
             onClick={handleModal}
             className="w-[110px] h-[60px] flex gap-2 items-center justify-center bg-white rounded-xl"
@@ -32,7 +33,7 @@ export const JobManagement = (): JSX.Element | null => {
           </button>
         </div>
       </div>
-      <JobTable />
+      <JobTable searchQuery={searchQuery} />
       {modalVisible && <JobFilter onToggle={setModalVisible} />}
     </main>
   );
