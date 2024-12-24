@@ -3,7 +3,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import authReducer from './features/authSlice';
 import jobTableReducer from './features/jobTableSlice';
-import userReducer from './features/userSlice';
+import userReducer from './features/userTableSlice';
 
 
 const persistConfig = {

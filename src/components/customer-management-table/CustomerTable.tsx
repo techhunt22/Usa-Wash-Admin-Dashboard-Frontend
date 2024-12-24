@@ -1,33 +1,37 @@
 "use client";
 import { Button } from "@/components/view-details-btn/Button";
-import { useFetchUserData } from "hooks/fetchUsers";
+import { useFetchUserData1 } from "hooks/fetchUsers";
 import Image from "next/image";
-import { useMemo, useState } from "react";
-import { setUsers } from "../../../redux/features/userSlice";
-import { useDispatch } from "react-redux";
-import { UsersSlice } from "utils/types";
+import { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setTotalUsers,
+  setUsers,
+} from "../../../redux/features/userTableSlice";
+import { User } from "../../../utils/types";
+import { RootState } from "../../../redux/store";
 
 export const CustomerTable = (): JSX.Element | null => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { data } = useFetchUserData("/api/v1/admin/users", currentPage);
+  const type: string = "customer";
+  const customers = useSelector((state: RootState) => state.user.users);
+  const totalPages = useSelector((state: RootState) => state.user.total_users);
+
+  const { data } = useFetchUserData1("/api/v1/admin/users", type, currentPage);
   const dispatch = useDispatch();
 
-  if (data) {
-    dispatch(setUsers(data?.data?.users?.data));
-  }
-  console.log(data);
-  const customers: UsersSlice[] = data?.data?.users?.data?.filter(
-    (user: UsersSlice) => user.role === "customer"
-  );
+  useEffect(() => {
+    if (data && data?.data?.data?.users?.data?.length > 0) {
+      dispatch(setUsers(data?.data?.data?.users?.data));
+      const totalPages = Math.ceil(
+        data?.data?.data?.total_users / data?.data?.data?.users?.per_page
+      );
 
-  const totalPages = useMemo(
-    () => Math.ceil(data?.data?.total_users / data?.data?.users?.per_page),
-    [data]
-  );
+      dispatch(setTotalUsers(totalPages));
+    }
+  }, [dispatch, data, currentPage]);
 
-  console.log(customers);
-  console.log(totalPages);
-  console.log(data);
+  console.log(currentPage);
 
   return (
     <div className="table w-[98%] h-max pb-4 px-2 bg-white rounded-2xl ">
@@ -37,7 +41,7 @@ export const CustomerTable = (): JSX.Element | null => {
         <p>Phone</p>
         <p>Actions</p>
       </div>
-      {customers?.map((item, index) => (
+      {customers?.map((item: User, index: number) => (
         <div
           key={index}
           className={`

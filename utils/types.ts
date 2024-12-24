@@ -188,3 +188,20 @@ export interface JobType {
     description:string
 }
 
+export interface User{
+                    id: number,
+                    full_name: string,
+                    email: string,
+                    phone_number: string,
+                    role: string,
+                    location:string,
+                    business_information:string,
+                    profile_pic:string,
+                    status: string,
+                    onesignal_player_id: string | null
+}
+
+export interface UserSlice {
+  users:User[],
+  total_users:number
+}
