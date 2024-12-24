@@ -73,7 +73,7 @@ export const JobFilter = ({ onToggle }: JobFilterProp): JSX.Element | null => {
           );
           dispatch(setTotalPages(totalPages));
         } catch (error) {
-          console.error("Error fetching filtered jobs:", error);
+          console.error("Error fetching filtered jobs :", error);
         } finally {
           setIsFilterApplied(false);
           onToggle(false);
