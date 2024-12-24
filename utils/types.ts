@@ -64,7 +64,6 @@ export interface Job {
 
 export interface jobTableSlice{
     jobs:Job[]
-    filteredJobs:Job[]
     totalPages:number
 }
 
@@ -159,9 +158,7 @@ export interface AuthState{
   }
 }
 
-export interface SearchInputProps {
-  setSearchResult:(searchQuery:string)=>void;
-}
+
 
 export type JobTableProps= {
   searchQuery:string
@@ -184,3 +181,10 @@ export  interface UsersSlice {
 export interface User {
   user:UsersSlice[]
 }
+
+export interface JobType {
+    id: number,
+    name:string
+    description:string
+}
+

@@ -1,18 +1,27 @@
 "use client";
-import React, { useCallback, useMemo, useState } from "react";
-import { JobFilterProp } from "../../../utils/types";
+import React, { useCallback, useMemo, useState, useEffect } from "react";
+import { JobFilterProp, JobType } from "../../../utils/types";
 import { Slider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { filterJobs } from "../../../redux/features/jobTableSlice";
+import { useFetchService, useToken } from "../../../utils/api";
+import axios from "axios";
+import {
+  setJobs,
+  clearJobs,
+  setTotalPages,
+} from "../../../redux/features/jobTableSlice";
 
 export const JobFilter = ({ onToggle }: JobFilterProp): JSX.Element | null => {
   const [range, setRange] = useState<number[]>([10, 3000]);
-  const [jobType, setJobType] = useState<string>("");
+  const [jobType, setJobType] = useState<number | undefined>(undefined);
   const [status, setStatus] = useState<string>("");
+  const [isFilterApplied, setIsFilterApplied] = useState<boolean>(false);
+
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const dispatch = useDispatch();
 
   const jobs = useSelector((state: RootState) => state?.jobTable?.jobs);
-  const dispatch = useDispatch();
 
   const rangeMin = 10;
   const rangeMax = 3000;
@@ -27,27 +36,63 @@ export const JobFilter = ({ onToggle }: JobFilterProp): JSX.Element | null => {
   const minValue = useMemo(() => range[0], [range]);
   const maxValue = useMemo(() => range[1], [range]);
 
-  const jobTypes = useMemo(
-    () => Array.from(new Set(jobs.map((job) => job.job_title))),
-    [jobs]
-  );
+  const { data: jobTypesData } = useFetchService(`/api/v1/services`);
+  const jobTypes: JobType[] = jobTypesData?.data?.services || [];
+
   const statuses = useMemo(
-    () => Array.from(new Set(jobs.map((job) => job.status))),
+    () => Array.from(new Set(jobs?.map((job) => job.status))),
     [jobs]
   );
 
   const handleApplyFilter = () => {
-    dispatch(
-      filterJobs({
-        searchQuery: "",
-        jobType,
-        minBudget: minValue,
-        maxBudget: maxValue,
-        status,
-      })
-    );
-    onToggle(false);
+    setIsFilterApplied(true);
   };
+
+  const token = useToken();
+
+  useEffect(() => {
+    if (isFilterApplied) {
+      const fetchFilteredJobs = async () => {
+        try {
+          const data = await axios.get(`${API_URL}/api/v1/jobs`, {
+            params: {
+              status,
+              min_budget: minValue,
+              max_budget: maxValue,
+              service_id: jobType ?? 0,
+            },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          dispatch(clearJobs());
+          dispatch(setJobs(data?.data?.data?.jobs?.data));
+          const totalPages = Math.ceil(
+            data?.data?.data?.total_jobs / data?.data?.data?.jobs?.per_page
+          );
+          dispatch(setTotalPages(totalPages));
+        } catch (error) {
+          console.error("Error fetching filtered jobs:", error);
+        } finally {
+          setIsFilterApplied(false);
+          onToggle(false);
+        }
+      };
+
+      fetchFilteredJobs();
+    }
+  }, [
+    isFilterApplied,
+    status,
+    minValue,
+    maxValue,
+    jobType,
+    API_URL,
+    dispatch,
+    onToggle,
+    token,
+  ]);
 
   return (
     <main className="fixed inset-0 bg-black/10 flex items-center justify-center">
@@ -75,12 +120,12 @@ export const JobFilter = ({ onToggle }: JobFilterProp): JSX.Element | null => {
             <select
               className="w-[370px] h-[58px] text-filterText text-xs outline-none font-roboto bg-customSilver rounded-lg"
               value={jobType}
-              onChange={(e) => setJobType(e.target.value)}
+              onChange={(e) => setJobType(Number(e.target.value))}
             >
               <option value="">Job Type</option>
-              {jobTypes.map((type) => (
-                <option key={type} value={type}>
-                  {type}
+              {jobTypes?.map((type) => (
+                <option key={type.id} value={type.id}>
+                  {type.name}
                 </option>
               ))}
             </select>

@@ -8,6 +8,7 @@ import { useState } from "react";
 export const CustomerManagement = (): JSX.Element | null => {
   const [searchResult, setSearchResult] = useState<string>("");
   console.log(searchResult);
+  console.log(setSearchResult);
   return (
     <main className="pb-10">
       <div className="stats flex flex-wrap gap-4 mt-10 ">
@@ -29,7 +30,7 @@ export const CustomerManagement = (): JSX.Element | null => {
           Customer Management{" "}
         </h1>
         <div className="options w-[40%] h-full  flex  items-center justify-end gap-2">
-          <SearchInput setSearchResult={setSearchResult} />
+          <SearchInput />
           <button className="w-[110px] h-[60px] flex gap-2 items-center justify-center bg-white rounded-xl">
             <Image
               src={"/icons/filter.svg"}
