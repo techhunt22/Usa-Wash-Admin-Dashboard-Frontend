@@ -1,14 +1,9 @@
-"use client";
 import { CustomerTable } from "@/components/customer-management-table/CustomerTable";
 import { SearchInput } from "@/components/search-input/SearchInput";
 import { Stats } from "@/components/stats/stats";
 import Image from "next/image";
-import { useState } from "react";
 
 export const CustomerManagement = (): JSX.Element | null => {
-  const [searchResult, setSearchResult] = useState<string>("");
-  console.log(searchResult);
-  console.log(setSearchResult);
   return (
     <main className="pb-10">
       <div className="stats flex flex-wrap gap-4 mt-10 ">

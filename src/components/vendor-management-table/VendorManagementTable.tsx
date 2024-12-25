@@ -1,25 +1,53 @@
 "use client";
 import { Button } from "@/components/view-details-btn/Button";
 import Image from "next/image";
-import { useMemo, useState } from "react";
-import { vendorManagementData } from "utils/data";
-
-const ITEMS_PER_PAGE = 7;
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setVendors,
+  setTotalVendors,
+} from "../../../redux/features/vendorTableSlice";
+import { useFetchUserData } from "utils/api";
+import { RootState } from "../../../redux/store";
+import { Vendor } from "../../../utils/types";
 
 export const VendorManagementTable = (): JSX.Element | null => {
   const [currentPage, setCurrentPage] = useState(1);
-
-  const totalPages = useMemo(
-    () => Math.ceil(vendorManagementData.length / ITEMS_PER_PAGE),
-    []
+  const type: string = "vendor";
+  const dispatch = useDispatch();
+  const vendors = useSelector((state: RootState) => state.vendor.vendors);
+  const totalPages = useSelector(
+    (state: RootState) => state.vendor.total_vendors
+  );
+  const { data, isLoading, error } = useFetchUserData(
+    `/api/v1/admin/users`,
+    type,
+    currentPage
   );
 
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  useEffect(() => {
+    if (data && data?.data?.data?.users?.data?.length > 0) {
+      dispatch(setVendors(data?.data?.data?.users?.data));
+      const totalPages = Math.ceil(
+        data?.data?.data?.total_users / data?.data?.data?.users?.per_page
+      );
+      console.log(totalPages);
+      dispatch(setTotalVendors(totalPages));
+    }
+  }, [data, dispatch, currentPage]);
 
-  const paginatedData = useMemo(
-    () => vendorManagementData?.slice(startIndex, startIndex + ITEMS_PER_PAGE),
-    [startIndex]
-  );
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!vendors || vendors?.length <= 0) {
+    return <div>No vendors.......</div>;
+  }
+
   return (
     <div className="table w-[98%] h-max pb-4 px-2 bg-white rounded-2xl ">
       <div className="table-headings font-roboto text-sm font-semibold grid text-darkGray grid-cols-5 gap-x-48 items-center h-14 px-2">
@@ -29,7 +57,7 @@ export const VendorManagementTable = (): JSX.Element | null => {
         <p>Status</p>
         <p>Actions</p>
       </div>
-      {paginatedData?.map((item, index) => (
+      {vendors?.map((item: Vendor, index: number) => (
         <div
           key={index}
           className={`
@@ -44,16 +72,16 @@ export const VendorManagementTable = (): JSX.Element | null => {
               height={38}
               alt="avatar.svg"
             />
-            {item?.name}
+            {item?.full_name}
           </p>
           <p>{item?.email}</p>
-          <p>{item?.phone}</p>
+          <p>{item?.phone_number}</p>
           <p
-            className={`w-[75px] h-[22px] 
+            className={`w-[75px] h-[22px] capitalize
             ${
-              item?.status == "Verified"
+              item?.status == "active"
                 ? "text-primary bg-primary/10"
-                : item?.status == "Pending"
+                : item?.status == "inactive"
                 ? "text-progress bg-progress/10"
                 : ""
             }

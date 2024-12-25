@@ -1,25 +1,58 @@
 "use client";
 import { Button } from "@/components/view-details-btn/Button";
 import Image from "next/image";
-import { useMemo, useState } from "react";
-import { vendorDummyData } from "utils/data";
-
-const ITEMS_PER_PAGE = 7;
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useFetchUserDataActive } from "../../../utils/api";
+import { RootState } from "../../../redux/store";
+import {
+  setInactiveVendors,
+  setTotalInActiveVendors,
+} from "../../../redux/features/vendorTableSlice";
+import { Vendor } from "../../../utils/types";
 
 export const VendorApprovalTable = (): JSX.Element | null => {
   const [currentPage, setCurrentPage] = useState(1);
+  const type: string = "vendor";
+  const status: string = "inactive";
+  const dispatch = useDispatch();
 
-  const totalPages = useMemo(
-    () => Math.ceil(vendorDummyData.length / ITEMS_PER_PAGE),
-    []
+  const vendors = useSelector(
+    (state: RootState) => state.vendor.vendors_inactive
+  );
+  const totalPages = useSelector(
+    (state: RootState) => state.vendor.total_inactiveVendors
   );
 
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-
-  const paginatedData = useMemo(
-    () => vendorDummyData?.slice(startIndex, startIndex + ITEMS_PER_PAGE),
-    [startIndex]
+  const { data, isLoading, error } = useFetchUserDataActive(
+    `/api/v1/admin/users`,
+    type,
+    currentPage,
+    status
   );
+
+  useEffect(() => {
+    if (data && data?.data?.data?.users?.data?.length > 0) {
+      dispatch(setInactiveVendors(data?.data?.data?.users?.data));
+      const totalPages = Math.ceil(
+        data?.data?.data?.total_users / data?.data?.data?.users?.per_page
+      );
+      dispatch(setTotalInActiveVendors(totalPages));
+    }
+  }, [dispatch, data]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
+  if (!vendors || vendors.length <= 0) {
+    return <div>No Vendors.....</div>;
+  }
+
   return (
     <div className="table w-[98%] h-max pb-4 px-2 bg-white rounded-2xl ">
       <div className="table-headings font-roboto text-sm font-semibold grid text-darkGray grid-cols-4 gap-x-48 items-center h-14 px-2">
@@ -28,7 +61,7 @@ export const VendorApprovalTable = (): JSX.Element | null => {
         <p>Phone</p>
         <p>Actions</p>
       </div>
-      {paginatedData?.map((item, index) => (
+      {vendors?.map((item: Vendor, index: number) => (
         <div
           key={index}
           className={`
@@ -43,10 +76,10 @@ export const VendorApprovalTable = (): JSX.Element | null => {
               height={38}
               alt="avatar.svg"
             />
-            {item?.name}
+            {item?.full_name}
           </p>
           <p>{item?.email}</p>
-          <p>{item?.phone}</p>
+          <p>{item?.phone_number}</p>
           <p>
             <Button path={""} color={`text-primary`} />
           </p>

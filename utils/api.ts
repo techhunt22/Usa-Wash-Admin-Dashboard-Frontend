@@ -146,3 +146,52 @@ export const useFetchService = (url:string)=>{
 
 }
 
+
+// User Apis (Customer And Vendor) 
+
+const fetchUserData= async (url:string,type:string,token:string|null,page:number)=>{
+    const data = await axios.get(`${API_URL}${url}?page=${page}`,{
+        params:{
+            type
+        },
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return data
+}
+
+export const useFetchUserData = (url:string,type:string,page:number)=>{
+    const reduxToken = useSelector((state: RootState) => state.auth.token);
+    const token = getToken(reduxToken);
+    return useQuery({
+        queryKey:[url,type,page],
+        queryFn:()=>fetchUserData(url,type,token,page)
+    })
+}
+
+const fetchUserDataInactive= async (url:string,type:string,token:string|null,page:number,status:string)=>{
+    const data = await axios.get(`${API_URL}${url}`,{
+        params:{
+            type,
+            page,
+            status
+        },
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return data
+}
+
+export const useFetchUserDataActive = (url:string,type:string,page:number,status:string)=>{
+    const reduxToken = useSelector((state: RootState) => state.auth.token);
+    const token = getToken(reduxToken);
+    return useQuery({
+        queryKey:[url,type,page],
+        queryFn:()=>fetchUserDataInactive(url,type,token,page,status)
+    })
+}
+
+
+

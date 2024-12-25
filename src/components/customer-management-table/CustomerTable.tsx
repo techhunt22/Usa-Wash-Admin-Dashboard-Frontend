@@ -1,28 +1,34 @@
 "use client";
 import { Button } from "@/components/view-details-btn/Button";
-import { useFetchUserData1 } from "hooks/fetchUsers";
+import { useFetchUserData } from "../../../utils/api";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setTotalUsers,
-  setUsers,
-} from "../../../redux/features/userTableSlice";
-import { User } from "../../../utils/types";
+  setCustomers,
+} from "../../../redux/features/customerTableSlice";
+import { Customer } from "../../../utils/types";
 import { RootState } from "../../../redux/store";
 
 export const CustomerTable = (): JSX.Element | null => {
   const [currentPage, setCurrentPage] = useState(1);
   const type: string = "customer";
-  const customers = useSelector((state: RootState) => state.user.users);
-  const totalPages = useSelector((state: RootState) => state.user.total_users);
+  const customers = useSelector((state: RootState) => state.customer.customers);
+  const totalPages = useSelector(
+    (state: RootState) => state.customer.total_users
+  );
 
-  const { data } = useFetchUserData1("/api/v1/admin/users", type, currentPage);
+  const { data, isLoading, error } = useFetchUserData(
+    "/api/v1/admin/users",
+    type,
+    currentPage
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (data && data?.data?.data?.users?.data?.length > 0) {
-      dispatch(setUsers(data?.data?.data?.users?.data));
+      dispatch(setCustomers(data?.data?.data?.users?.data));
       const totalPages = Math.ceil(
         data?.data?.data?.total_users / data?.data?.data?.users?.per_page
       );
@@ -31,7 +37,17 @@ export const CustomerTable = (): JSX.Element | null => {
     }
   }, [dispatch, data, currentPage]);
 
-  console.log(currentPage);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!customers || customers?.length <= 0) {
+    return <div>No customers.......</div>;
+  }
 
   return (
     <div className="table w-[98%] h-max pb-4 px-2 bg-white rounded-2xl ">
@@ -41,7 +57,7 @@ export const CustomerTable = (): JSX.Element | null => {
         <p>Phone</p>
         <p>Actions</p>
       </div>
-      {customers?.map((item: User, index: number) => (
+      {customers?.map((item: Customer, index: number) => (
         <div
           key={index}
           className={`
@@ -49,7 +65,7 @@ export const CustomerTable = (): JSX.Element | null => {
          table-data grid grid-cols-4 items-center gap-x-48 h-14 gap-10
          `}
         >
-          <p className="flex gap-2 items-center">
+          <p className="flex gap-2 items-center truncate">
             <Image
               src={"/images/avatar.svg"}
               width={38}

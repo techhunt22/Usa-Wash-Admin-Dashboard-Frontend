@@ -1,15 +1,10 @@
-"use client";
 import { PendingApprovals } from "@/components/pending-approvals/PendingApprovals";
 import { SearchInput } from "@/components/search-input/SearchInput";
 import { Stats } from "@/components/stats/stats";
 import { VendorManagementTable } from "@/components/vendor-management-table/VendorManagementTable";
 import Image from "next/image";
-import { useState } from "react";
 
 export const VendorManagement = (): JSX.Element | null => {
-  const [search, setSearch] = useState<string>("");
-  console.log(setSearch);
-  console.log(search);
   return (
     <main className="w-full h-full pb-10 ">
       <div className="stats flex flex-wrap gap-4 mt-10">

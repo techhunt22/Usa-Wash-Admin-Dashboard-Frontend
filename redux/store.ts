@@ -3,7 +3,8 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import authReducer from './features/authSlice';
 import jobTableReducer from './features/jobTableSlice';
-import userReducer from './features/userTableSlice';
+import customerReducer from './features/customerTableSlice';
+import vendorReducer from './features/vendorTableSlice';
 
 
 const persistConfig = {
@@ -20,7 +21,8 @@ export const store = configureStore({
     reducer: {
         auth: persistedAuthReducer,
         jobTable:jobTableReducer,
-        user: userReducer
+        customer: customerReducer,
+        vendor:vendorReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

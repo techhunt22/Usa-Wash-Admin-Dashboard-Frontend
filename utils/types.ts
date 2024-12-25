@@ -188,7 +188,7 @@ export interface JobType {
     description:string
 }
 
-export interface User{
+export interface Customer{
                     id: number,
                     full_name: string,
                     email: string,
@@ -199,9 +199,32 @@ export interface User{
                     profile_pic:string,
                     status: string,
                     onesignal_player_id: string | null
+                    created_at:string
 }
 
-export interface UserSlice {
-  users:User[],
+export interface CustomerSlice {
+  customers:Customer[],
   total_users:number
+}
+
+
+export interface Vendor{
+  id: number,
+  full_name: string,
+  email: string,
+  phone_number: string,
+  role: string,
+  location:string,
+  business_information:string,
+  profile_pic:string,
+  status: string,
+  onesignal_player_id: string | null
+  created_at:string
+}
+
+export interface VendorSlice {
+  vendors:Vendor[],
+  vendors_inactive:Vendor[],
+  total_inactiveVendors:number,
+  total_vendors:number
 }
