@@ -70,6 +70,10 @@ export interface jobTableSlice{
 
 export interface JobFilterProp {
   onToggle : (isVisible:boolean)=> void
+  setStatus:(status:string|undefined)=>void
+  setMinBudget:(min_budget:number|undefined)=>void
+  setMaxBudget:(max_budget:number|undefined)=>void
+  setServiceId :(service_id:number|undefined)=>void
 }
 
 export interface ChartData {
@@ -103,6 +107,8 @@ export interface VendorData1 {
 
 export interface ViewDateRangeProps {
   onToggle:(isVisible:boolean)=>void
+  SetStartDate:(start_date:string)=>void
+  SetEndDate:(end_date:string)=>void
 }
 
 export interface SuspendProps { 
@@ -160,9 +166,6 @@ export interface AuthState{
 
 
 
-export type JobTableProps= {
-  searchQuery:string
-}
 
 
 export  interface UsersSlice {
@@ -227,4 +230,52 @@ export interface VendorSlice {
   vendors_inactive:Vendor[],
   total_inactiveVendors:number,
   total_vendors:number
+}
+
+// -----
+export interface SearchInputProps {
+  onToggle:(searchQuery:string)=>void
+}
+
+export interface TableProps { 
+  searchTerm : string 
+}
+
+export interface VendorApprovalsProps {
+  searchTerm : string ,
+  start_date:string|undefined,
+  end_date:string|undefined,
+}
+
+export interface JobTableProps { 
+  search:string|undefined
+  status:string|undefined
+  min_budget:number|undefined
+  max_budget:number|undefined
+  service_id:number|undefined
+}
+
+export interface UserFilterProps { 
+  type:string,
+  search:string | undefined,
+  page:number,
+  
+}
+
+export interface VendorApprovalFilterProps { 
+  type:string,
+  status:string,
+  search:string | undefined,
+  page:number,
+  start_date:string | undefined,
+  end_date:string | undefined
+}
+
+export interface JobTableFilterProps{
+  search:string|undefined
+status:string|undefined
+min_budget:number|undefined
+max_budget:number|undefined
+service_id:number|undefined
+page:number
 }

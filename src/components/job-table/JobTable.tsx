@@ -2,13 +2,24 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "../view-details-btn/Button";
-import { useFetchData } from "../../../utils/api";
-import { Job } from "utils/types";
+import { useFetchJobs } from "../../../utils/api";
+import { Job, JobTableProps } from "utils/types";
 import { useDispatch, useSelector } from "react-redux";
-import { setJobs, setTotalPages } from "../../../redux/features/jobTableSlice";
+import {
+  clearJobs,
+  setJobs,
+  setTotalPages,
+} from "../../../redux/features/jobTableSlice";
 import { RootState } from "../../../redux/store";
+import { Loader } from "../loader/Loader";
 
-export const JobTable = (): JSX.Element | null => {
+export const JobTable = ({
+  max_budget,
+  min_budget,
+  search,
+  service_id,
+  status,
+}: JobTableProps): JSX.Element | null => {
   const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
 
@@ -17,7 +28,20 @@ export const JobTable = (): JSX.Element | null => {
     (state: RootState) => state.jobTable.totalPages
   );
 
-  const { data, isLoading, error } = useFetchData(`/api/v1/jobs`, currentPage);
+  const { data, isLoading, error } = useFetchJobs(
+    "/api/v1/jobs",
+    {
+      status,
+      search: search || undefined,
+      min_budget,
+      max_budget,
+      service_id,
+      page: currentPage,
+    },
+    [search, currentPage]
+  );
+
+  console.log(data);
 
   useEffect(() => {
     if (data && data?.data?.jobs?.data?.length > 0) {
@@ -25,12 +49,15 @@ export const JobTable = (): JSX.Element | null => {
       const totalPages = Math.ceil(
         data?.data?.total_jobs / data?.data?.jobs?.per_page
       );
+
       dispatch(setTotalPages(totalPages));
+    } else {
+      dispatch(clearJobs());
     }
-  }, [data, dispatch, currentPage]);
+  }, [dispatch, data, currentPage]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (error) {

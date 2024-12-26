@@ -3,15 +3,21 @@ import { Button } from "@/components/view-details-btn/Button";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useFetchUserDataActive } from "../../../utils/api";
+import { useFetchInactiveVendors } from "../../../utils/api";
 import { RootState } from "../../../redux/store";
 import {
+  clearInactiveVendors,
   setInactiveVendors,
   setTotalInActiveVendors,
 } from "../../../redux/features/vendorTableSlice";
-import { Vendor } from "../../../utils/types";
+import { TableProps, Vendor, VendorApprovalsProps } from "../../../utils/types";
+import { Loader } from "../loader/Loader";
 
-export const VendorApprovalTable = (): JSX.Element | null => {
+export const VendorApprovalTable = ({
+  searchTerm,
+  end_date,
+  start_date,
+}: VendorApprovalsProps): JSX.Element | null => {
   const [currentPage, setCurrentPage] = useState(1);
   const type: string = "vendor";
   const status: string = "inactive";
@@ -24,29 +30,38 @@ export const VendorApprovalTable = (): JSX.Element | null => {
     (state: RootState) => state.vendor.total_inactiveVendors
   );
 
-  const { data, isLoading, error } = useFetchUserDataActive(
+  const { data, isLoading, error } = useFetchInactiveVendors(
     `/api/v1/admin/users`,
-    type,
-    currentPage,
-    status
+    {
+      type,
+      status,
+      search: searchTerm || undefined,
+      page: currentPage,
+      start_date: start_date || undefined,
+      end_date: end_date || undefined,
+    },
+    [searchTerm, currentPage, start_date, end_date]
   );
 
   useEffect(() => {
-    if (data && data?.data?.data?.users?.data?.length > 0) {
-      dispatch(setInactiveVendors(data?.data?.data?.users?.data));
+    if (data && data?.data?.users?.data?.length > 0) {
+      dispatch(setInactiveVendors(data?.data?.users?.data));
       const totalPages = Math.ceil(
-        data?.data?.data?.total_users / data?.data?.data?.users?.per_page
+        data?.data?.total_users / data?.data?.users?.per_page
       );
+
       dispatch(setTotalInActiveVendors(totalPages));
+    } else {
+      dispatch(clearInactiveVendors());
     }
-  }, [dispatch, data]);
+  }, [dispatch, data, currentPage]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (error) {
-    return <div>{error.message}</div>;
+    return <div>Error: {error.message}</div>;
   }
 
   if (!vendors || vendors.length <= 0) {

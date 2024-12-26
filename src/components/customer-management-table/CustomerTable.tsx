@@ -1,17 +1,21 @@
 "use client";
 import { Button } from "@/components/view-details-btn/Button";
-import { useFetchUserData } from "../../../utils/api";
+import { useFetchUsers } from "../../../utils/api";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setTotalUsers,
   setCustomers,
+  clearCustomers,
 } from "../../../redux/features/customerTableSlice";
-import { Customer } from "../../../utils/types";
+import { Customer, TableProps } from "../../../utils/types";
 import { RootState } from "../../../redux/store";
+import { Loader } from "../loader/Loader";
 
-export const CustomerTable = (): JSX.Element | null => {
+export const CustomerTable = ({
+  searchTerm,
+}: TableProps): JSX.Element | null => {
   const [currentPage, setCurrentPage] = useState(1);
   const type: string = "customer";
   const customers = useSelector((state: RootState) => state.customer.customers);
@@ -19,26 +23,32 @@ export const CustomerTable = (): JSX.Element | null => {
     (state: RootState) => state.customer.total_users
   );
 
-  const { data, isLoading, error } = useFetchUserData(
+  const { data, isLoading, error } = useFetchUsers(
     "/api/v1/admin/users",
-    type,
-    currentPage
+    {
+      type,
+      search: searchTerm || undefined,
+      page: currentPage,
+    },
+    [searchTerm, currentPage]
   );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (data && data?.data?.data?.users?.data?.length > 0) {
-      dispatch(setCustomers(data?.data?.data?.users?.data));
+    if (data && data?.data?.users?.data?.length > 0) {
+      dispatch(setCustomers(data?.data?.users?.data));
       const totalPages = Math.ceil(
-        data?.data?.data?.total_users / data?.data?.data?.users?.per_page
+        data?.data?.total_users / data?.data?.users?.per_page
       );
 
       dispatch(setTotalUsers(totalPages));
+    } else {
+      dispatch(clearCustomers());
     }
   }, [dispatch, data, currentPage]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (error) {
@@ -65,7 +75,7 @@ export const CustomerTable = (): JSX.Element | null => {
          table-data grid grid-cols-4 items-center gap-x-48 h-14 gap-10
          `}
         >
-          <p className="flex gap-2 items-center truncate">
+          <p className="flex gap-2 items-center ">
             <Image
               src={"/images/avatar.svg"}
               width={38}

@@ -6,12 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setVendors,
   setTotalVendors,
+  clearVendors,
 } from "../../../redux/features/vendorTableSlice";
-import { useFetchUserData } from "utils/api";
+import { useFetchUsers } from "utils/api";
 import { RootState } from "../../../redux/store";
-import { Vendor } from "../../../utils/types";
+import { TableProps, Vendor } from "../../../utils/types";
+import { Loader } from "../loader/Loader";
 
-export const VendorManagementTable = (): JSX.Element | null => {
+export const VendorManagementTable = ({
+  searchTerm,
+}: TableProps): JSX.Element | null => {
   const [currentPage, setCurrentPage] = useState(1);
   const type: string = "vendor";
   const dispatch = useDispatch();
@@ -19,25 +23,32 @@ export const VendorManagementTable = (): JSX.Element | null => {
   const totalPages = useSelector(
     (state: RootState) => state.vendor.total_vendors
   );
-  const { data, isLoading, error } = useFetchUserData(
-    `/api/v1/admin/users`,
-    type,
-    currentPage
+
+  const { data, isLoading, error } = useFetchUsers(
+    "/api/v1/admin/users",
+    {
+      type,
+      search: searchTerm || undefined,
+      page: currentPage,
+    },
+    [searchTerm, currentPage]
   );
 
   useEffect(() => {
-    if (data && data?.data?.data?.users?.data?.length > 0) {
-      dispatch(setVendors(data?.data?.data?.users?.data));
+    if (data && data?.data?.users?.data?.length > 0) {
+      dispatch(setVendors(data?.data?.users?.data));
       const totalPages = Math.ceil(
-        data?.data?.data?.total_users / data?.data?.data?.users?.per_page
+        data?.data?.total_users / data?.data?.users?.per_page
       );
-      console.log(totalPages);
+
       dispatch(setTotalVendors(totalPages));
+    } else {
+      dispatch(clearVendors());
     }
-  }, [data, dispatch, currentPage]);
+  }, [dispatch, data, currentPage]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (error) {

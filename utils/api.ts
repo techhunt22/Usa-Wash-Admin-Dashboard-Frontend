@@ -1,8 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { AdminLoginProps } from "./types";
+import { AdminLoginProps, JobTableFilterProps, UserFilterProps, VendorApprovalFilterProps } from "./types";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
+
+
+
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -78,28 +81,24 @@ export const useAdminLogout = (onSuccess: () => void) => {
 
 // Job  Table Api 
 
-export const FetchData = async (url: string, token: string | null, page: number) => {
-    if (!token) {
-        throw new Error('No authentication token available');
-    }
-    try {
-        const response = await axios.get(`${API_URL}${url}?page=${page}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        return response?.data;
-    } catch (error) {
-        throw error;
-    }
-};
+const fetchJobs=async(url:string,params:JobTableFilterProps,token:string|null)=>{
+    const response = await axios.get(`${API_URL}${url}`,{
+        params:{
+            ...params
+        },
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response?.data
+}
 
-export const useFetchData = (url: string, page: number) => { 
+export const useFetchJobs = (url:string,params:JobTableFilterProps,dependencies: unknown[])=>{
     const reduxToken = useSelector((state: RootState) => state.auth.token);
     const token = getToken(reduxToken);
     return useQuery({
-        queryKey: [url, page, token], 
-        queryFn: () => FetchData(url, token, page),
+        queryKey: [url, params, ...dependencies],
+        queryFn: () => fetchJobs(url, params,token),
         enabled: !!token,
         retry: (failureCount, error) => {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
@@ -107,11 +106,11 @@ export const useFetchData = (url: string, page: number) => {
             }
             return failureCount < 3;
         },
-        staleTime: 5 * 60 * 1000, 
+        staleTime: 5 * 60 * 1000,
     });
-};
+}
 
-export const FetchService = async (url:string,token:string|null) => {
+const FetchService = async (url:string,token:string|null) => {
     if (!token) {
         throw new Error('No authentication token available');
     }
@@ -146,52 +145,64 @@ export const useFetchService = (url:string)=>{
 
 }
 
-
 // User Apis (Customer And Vendor) 
 
-const fetchUserData= async (url:string,type:string,token:string|null,page:number)=>{
-    const data = await axios.get(`${API_URL}${url}?page=${page}`,{
+const fetchUsers = async (url:string,token:string|null,params:UserFilterProps)=>{
+    const response = await axios.get(`${API_URL}${url}`,{
         params:{
-            type
+          ...params
         },
         headers:{
             Authorization:`Bearer ${token}`
         }
     })
-    return data
+    return response?.data
 }
 
-export const useFetchUserData = (url:string,type:string,page:number)=>{
+export const useFetchUsers = (url: string, params: UserFilterProps, dependencies: unknown[]) => {
     const reduxToken = useSelector((state: RootState) => state.auth.token);
     const token = getToken(reduxToken);
     return useQuery({
-        queryKey:[url,type,page],
-        queryFn:()=>fetchUserData(url,type,token,page)
-    })
-}
+        queryKey: [url, params, ...dependencies],
+        queryFn: () => fetchUsers(url, token, params),
+        enabled: !!token,
+        retry: (failureCount, error) => {
+            if (axios.isAxiosError(error) && error.response?.status === 401) {
+                return false;
+            }
+            return failureCount < 3;
+        },
+        staleTime: 5 * 60 * 1000,
+    });
+};
 
-const fetchUserDataInactive= async (url:string,type:string,token:string|null,page:number,status:string)=>{
-    const data = await axios.get(`${API_URL}${url}`,{
+const fetchInactiveVendors = async (url:string,token:string|null,params:VendorApprovalFilterProps)=>{
+    const response = await axios.get(`${API_URL}${url}`,{
         params:{
-            type,
-            page,
-            status
+          ...params
         },
         headers:{
             Authorization:`Bearer ${token}`
         }
     })
-    return data
+    return response?.data
 }
 
-export const useFetchUserDataActive = (url:string,type:string,page:number,status:string)=>{
+export const useFetchInactiveVendors = (url: string, params: VendorApprovalFilterProps, dependencies: unknown[]) => {
     const reduxToken = useSelector((state: RootState) => state.auth.token);
     const token = getToken(reduxToken);
     return useQuery({
-        queryKey:[url,type,page],
-        queryFn:()=>fetchUserDataInactive(url,type,token,page,status)
-    })
-}
-
+        queryKey: [url, params, ...dependencies],
+        queryFn: () => fetchInactiveVendors(url, token, params),
+        enabled: !!token,
+        retry: (failureCount, error) => {
+            if (axios.isAxiosError(error) && error.response?.status === 401) {
+                return false;
+            }
+            return failureCount < 3;
+        },
+        staleTime: 5 * 60 * 1000,
+    });
+};
 
 

@@ -1,5 +1,4 @@
 "use client";
-import axios from "axios";
 import {
   format,
   startOfMonth,
@@ -13,14 +12,7 @@ import {
 } from "date-fns";
 import Image from "next/image";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useToken } from "../../../utils/api";
 import { ViewDateRangeProps } from "../../../utils/types";
-import {
-  clearInactiveVendors,
-  setInactiveVendors,
-  setTotalInActiveVendors,
-} from "../../../redux/features/vendorTableSlice";
 
 type DateRange = {
   startDate: Date | null;
@@ -29,14 +21,14 @@ type DateRange = {
 
 export const DateRangePicker = ({
   onToggle,
+  SetEndDate,
+  SetStartDate,
 }: ViewDateRangeProps): JSX.Element => {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   const [range, setRange] = useState<DateRange>({
     startDate: null,
     endDate: null,
   });
-  const dispatch = useDispatch();
 
   const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
   const startDate = startOfMonth(currentMonth);
@@ -108,39 +100,14 @@ export const DateRangePicker = ({
     return days;
   };
 
-  const token = useToken();
-
   const handleFilterVendors = async () => {
-    try {
-      let status: string = "inactive";
-      const start_date = range.startDate
-        ? format(range.startDate, "yyyy-MM-dd")
-        : "";
-      const end_date = range.endDate ? format(range.endDate, "yyyy-MM-dd") : "";
-      const response = await axios.get(
-        `${API_URL}/api/v1/admin/users?type=vendor`,
-        {
-          params: {
-            status,
-            start_date,
-            end_date,
-          },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      dispatch(clearInactiveVendors());
-      dispatch(setInactiveVendors(response?.data?.data?.users?.data));
-      const totalPages = Math.ceil(
-        response?.data?.data?.total_users /
-          response?.data?.data?.users?.per_page
-      );
-      dispatch(setTotalInActiveVendors(totalPages));
-      onToggle(false);
-    } catch (error) {
-      console.error(error);
-    }
+    let start_date = range.startDate
+      ? format(range.startDate, "yyyy-MM-dd")
+      : "";
+    const end_date = range.endDate ? format(range.endDate, "yyyy-MM-dd") : "";
+    SetEndDate(end_date);
+    SetStartDate(start_date);
+    onToggle(false);
   };
 
   return (
