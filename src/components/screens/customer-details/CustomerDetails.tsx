@@ -93,7 +93,13 @@ export const CustomerDetails = (): JSX.Element | null => {
         </div>
       </div>
       <h1 className="font-roboto text-xl font-semibold">All Jobs</h1>
-      <JobTable />
+      <JobTable
+        max_budget={0}
+        min_budget={0}
+        search=""
+        status=""
+        service_id={0}
+      />
       {suspendModal && (
         <Suspend
           heading={` Suspend Customer`}

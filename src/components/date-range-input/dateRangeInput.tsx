@@ -101,7 +101,7 @@ export const DateRangePicker = ({
   };
 
   const handleFilterVendors = async () => {
-    let start_date = range.startDate
+    const start_date = range.startDate
       ? format(range.startDate, "yyyy-MM-dd")
       : "";
     const end_date = range.endDate ? format(range.endDate, "yyyy-MM-dd") : "";

@@ -1,9 +1,12 @@
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 export const TotalUsers = (): JSX.Element | null => {
+  const users = useSelector((state: RootState) => state.analytics.totalUsers);
   return (
     <div className="total-customers w-[22%] h-[225px] bg-white shadow-lg rounded-xl  flex flex-col items-center justify-center gap-2">
-      <h1 className="text-3xl font-roboto text-primary font-bold">2,540</h1>
+      <h1 className="text-3xl font-roboto text-primary font-bold">{users}</h1>
       <h1 className="font-roboto text-sm font-semibold">Total User</h1>
       <p className="text-center font-roboto text-xs font-normal ">
         Registered users on the <br /> platform.

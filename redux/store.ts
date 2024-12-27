@@ -5,6 +5,9 @@ import authReducer from './features/authSlice';
 import jobTableReducer from './features/jobTableSlice';
 import customerReducer from './features/customerTableSlice';
 import vendorReducer from './features/vendorTableSlice';
+import analyticsReducer from './features/analyticsSlice';
+import jobDetailsReducer from './features/jobDetailsSlice'
+import userDetailsReducer from './features/userDetailSlice'
 
 
 const persistConfig = {
@@ -15,6 +18,7 @@ const persistConfig = {
 
 
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
+const persistedAnalyticsReducer=persistReducer(persistConfig,analyticsReducer)
 
 
 export const store = configureStore({
@@ -22,7 +26,10 @@ export const store = configureStore({
         auth: persistedAuthReducer,
         jobTable:jobTableReducer,
         customer: customerReducer,
-        vendor:vendorReducer
+        vendor:vendorReducer,
+        analytics:persistedAnalyticsReducer,
+        jobDetails:jobDetailsReducer,
+        userDetails:userDetailsReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

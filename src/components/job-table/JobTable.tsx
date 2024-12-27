@@ -41,8 +41,6 @@ export const JobTable = ({
     [search, currentPage]
   );
 
-  console.log(data);
-
   useEffect(() => {
     if (data && data?.data?.jobs?.data?.length > 0) {
       dispatch(setJobs(data?.data?.jobs?.data));
@@ -104,14 +102,14 @@ export const JobTable = ({
           </p>
           <p>${job?.budget}</p>
           <p
-            className={`w-[100px] h-[25px] ${
+            className={`w-[100px] h-[25px] capitalize ${
               job?.status === "completed"
                 ? "text-completed bg-completed/10"
                 : job.status === "in-progress"
                 ? "text-progress bg-progress/10"
                 : job.status === "open"
                 ? "text-notBid bg-notBid/10"
-                : job.status === "Bidding"
+                : job.status === "cancelled"
                 ? "text-bidding bg-bidding/10"
                 : ""
             } flex items-center justify-center rounded-lg`}
@@ -121,7 +119,10 @@ export const JobTable = ({
           <p className="truncate">{job?.location}</p>
           <p>{job?.scheduled_time}</p>
           <p>
-            <Button color="text-primary" path="/dashboard/job-details" />
+            <Button
+              color="text-primary"
+              path={`/dashboard/job-details/${job?.id}`}
+            />
           </p>
         </div>
       ))}

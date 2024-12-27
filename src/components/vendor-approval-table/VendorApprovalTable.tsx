@@ -10,7 +10,7 @@ import {
   setInactiveVendors,
   setTotalInActiveVendors,
 } from "../../../redux/features/vendorTableSlice";
-import { TableProps, Vendor, VendorApprovalsProps } from "../../../utils/types";
+import { Vendor, VendorApprovalsProps } from "../../../utils/types";
 import { Loader } from "../loader/Loader";
 
 export const VendorApprovalTable = ({

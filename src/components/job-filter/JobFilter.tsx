@@ -2,9 +2,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { JobFilterProp, JobType } from "../../../utils/types";
 import { Slider } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
-import { useFetchService, useToken } from "../../../utils/api";
+import { useFetchService, useFetchStatus } from "../../../utils/api";
 
 export const JobFilter = ({
   onToggle,
@@ -16,8 +14,6 @@ export const JobFilter = ({
   const [range, setRange] = useState<number[]>([10, 3000]);
   const [jobType, setJobType] = useState<number | undefined>(undefined);
   const [status, setstatus] = useState<string>("");
-
-  const jobs = useSelector((state: RootState) => state?.jobTable?.jobs);
 
   const rangeMin = 10;
   const rangeMax = 3000;
@@ -35,10 +31,9 @@ export const JobFilter = ({
   const { data: jobTypesData } = useFetchService(`/api/v1/services`);
   const jobTypes: JobType[] = jobTypesData?.data?.services || [];
 
-  const statuses = useMemo(
-    () => Array.from(new Set(jobs?.map((job) => job.status))),
-    [jobs]
-  );
+  const { data } = useFetchStatus(`/api/v1/job-statuses`);
+
+  const statuses: string[] = data?.data || [];
 
   const handleApplyFilter = () => {
     setStatus(status);
@@ -47,8 +42,6 @@ export const JobFilter = ({
     setServiceId(jobType);
     onToggle(false);
   };
-
-  const token = useToken();
 
   return (
     <main className="fixed inset-0 bg-black/10 flex items-center justify-center">

@@ -165,9 +165,6 @@ export interface AuthState{
 }
 
 
-
-
-
 export  interface UsersSlice {
   id:number,
   full_name:string,
@@ -232,7 +229,7 @@ export interface VendorSlice {
   total_vendors:number
 }
 
-// -----
+
 export interface SearchInputProps {
   onToggle:(searchQuery:string)=>void
 }
@@ -278,4 +275,65 @@ min_budget:number|undefined
 max_budget:number|undefined
 service_id:number|undefined
 page:number
+}
+
+export interface AnalyticsProps{
+  totalCustomers:number|null ,
+  totalVendors:number|null,
+  totalUsers:number|null,
+  totalInactiveVendors:number|null,
+  totalJobs:number|null
+}
+
+export interface JobDetailsProps{
+  id:string|undefined
+}
+
+// -------------------
+
+export interface job_applications {
+  id:number
+  budget:number
+  user_id:number
+}
+
+
+export interface Jobs{
+  job_title:string,
+  location:string,
+  budget:number,
+  status:string,
+  scheduled_time:string,
+  job_description:string,
+  job_applications:job_applications[]
+  user:Users,
+  vendor:Vendor
+}
+
+export interface Users {
+    id:number
+    full_name:string,
+    email:string,
+    phone_number:string,
+    location:string
+    profile_pic:string,
+    status:string
+}
+
+export interface vendorReviews{
+    totalReviews: number,
+      averageRating:string
+}
+
+export interface JobDetailsData{
+  job:Jobs  |null ,
+  vendorReviews:vendorReviews|null 
+}
+
+export interface UserDetailsData{
+  user:Users |null,
+  totalJobsPosted:number,
+  jobs:Job[]
+  totalPages:number
+
 }

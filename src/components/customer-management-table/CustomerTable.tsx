@@ -88,7 +88,7 @@ export const CustomerTable = ({
           <p>{item?.phone_number}</p>
           <p>
             <Button
-              path={"/dashboard/customer-details"}
+              path={`/dashboard/customer-details/${item?.id}`}
               color={`text-primary`}
             />
           </p>
