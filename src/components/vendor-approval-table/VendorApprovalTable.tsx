@@ -96,7 +96,10 @@ export const VendorApprovalTable = ({
           <p>{item?.email}</p>
           <p>{item?.phone_number}</p>
           <p>
-            <Button path={""} color={`text-primary`} />
+            <Button
+              path={`/dashboard/vendor-details/${item?.id}`}
+              color={`text-primary`}
+            />
           </p>
         </div>
       ))}

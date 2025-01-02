@@ -1,6 +1,10 @@
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 export const Details = (): JSX.Element | null => {
+  // User Details
+  const users = useSelector((state: RootState) => state.userDetails.user);
   return (
     <div className="customer-details w-[50%] h-[320px] bg-white rounded-xl flex">
       <div className="image w-[40%]  flex items-center justify-center">
@@ -18,7 +22,7 @@ export const Details = (): JSX.Element | null => {
               Full Name
             </p>
             <p className=" font-roboto w-[50%] flex  text-sm font-normal">
-              Michael Guzzi
+              {users?.full_name}
             </p>
           </div>
           <div className="w-full h-[2px] bg-background" />
@@ -27,7 +31,7 @@ export const Details = (): JSX.Element | null => {
               Phone
             </p>
             <p className=" font-roboto w-[50%] text-sm font-normal">
-              +1 333 6656 666
+              {users?.phone_number}
             </p>
           </div>
           <div className="w-full h-[2px] bg-background" />
@@ -36,7 +40,7 @@ export const Details = (): JSX.Element | null => {
               Email
             </p>
             <p className=" font-roboto w-[50%] text-sm font-normal">
-              micheal guzzi@gmail.com
+              {users?.email}
             </p>
           </div>
           <div className="w-full h-[2px] bg-background" />
@@ -44,8 +48,8 @@ export const Details = (): JSX.Element | null => {
             <p className="font-roboto text-sm font-normal text-filterText">
               Location
             </p>
-            <p className=" font-roboto  w-[50%]  text-sm font-normal">
-              California,Usa
+            <p className=" font-roboto  w-[50%]  text-sm font-normal truncate ">
+              {users?.location}
             </p>
           </div>
           <div className="w-full h-[2px] bg-background" />
@@ -54,7 +58,7 @@ export const Details = (): JSX.Element | null => {
               Registration Date
             </p>
             <p className=" font-roboto  w-[50%]  text-sm font-normal">
-              2024-11-10
+              {users?.created_at?.slice(0, 10)}
             </p>
           </div>
           <div className="w-full h-[2px] bg-background" />
@@ -62,7 +66,9 @@ export const Details = (): JSX.Element | null => {
             <p className="font-roboto text-sm font-normal text-filterText">
               Account Status
             </p>
-            <p className=" font-roboto  w-[50%]  text-sm font-normal">Active</p>
+            <p className=" font-roboto  w-[50%]  text-sm font-normal capitalize">
+              {users?.status}
+            </p>
           </div>
           <div className="w-full h-[2px] bg-background" />
         </div>

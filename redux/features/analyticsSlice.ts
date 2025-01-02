@@ -16,18 +16,23 @@ const analyticsSlice = createSlice({
     reducers:{
         setTotalCustomers:(state,action:PayloadAction<number>)=>{
             state.totalCustomers=action.payload
+            localStorage.setItem('totalCustomers',action.payload.toString())
         },
         setTotalVendors:(state,action:PayloadAction<number>)=>{
             state.totalVendors=action.payload
+            localStorage.setItem('totalVendors',action.payload.toString())
         },
         setTotalInactiveVendors:(state,action:PayloadAction<number>)=>{
             state.totalInactiveVendors=action.payload
+            localStorage.setItem('totalInactiveVendors',action.payload.toString())
         },
         setTotalUsers:(state,action:PayloadAction<number>)=>{
             state.totalUsers=action.payload
+            localStorage.setItem('totalUsers',action.payload.toString())
         },
         setTotalJobs:(state,action:PayloadAction<number>)=>{
             state.totalJobs=action.payload
+            localStorage.setItem('totalJobs',action.payload.toString())
         },
     }
 

@@ -7,6 +7,8 @@ import { Suspend } from "@/components/suspendModal/SuspendModal";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
 import { useCallback, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/store";
 
 export const CustomerDetails = (): JSX.Element | null => {
   const [showBtn, setShowBtn] = useState<boolean>(false);
@@ -30,6 +32,11 @@ export const CustomerDetails = (): JSX.Element | null => {
     setActiveModal(true);
     setShowBtn(false);
   }, []);
+
+  //User Details
+  const users = useSelector(
+    (state: RootState) => state.userDetails.totalJobsPosted
+  );
 
   return (
     <main className="flex flex-col gap-4 mt-10 pb-10 px-4">
@@ -75,7 +82,7 @@ export const CustomerDetails = (): JSX.Element | null => {
           <div className="flex items-center justify-between  ">
             <div className="flex flex-col">
               <p className="font-roboto text-[100px] font-bold  h-[120px]">
-                35
+                {users}
               </p>
               <p className="font-roboto text-[20px] font-normal ">
                 Jobs Posted

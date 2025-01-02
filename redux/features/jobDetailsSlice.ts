@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { JobDetailsData, Jobs,  vendorReviews } from "utils/types";
+import { job_applications, JobDetailsData, Jobs,  vendorReviews } from "utils/types";
 
 
 const initialState:JobDetailsData={
     job:null,
-    vendorReviews:null
+    vendorReviews:null,
+    job_applications:null
 }
 
 const jobDetailsSlice = createSlice({
@@ -16,10 +17,13 @@ const jobDetailsSlice = createSlice({
         },
         setVendorReviews:(state,action:PayloadAction<vendorReviews>)=>{
             state.vendorReviews=action.payload
+        },
+        setJobApplications:(state,action:PayloadAction<job_applications[]>)=>{
+            state.job_applications=action.payload
         }
     }
 })
 
 
-export const {setJobsDetails,setVendorReviews}=jobDetailsSlice.actions
+export const {setJobsDetails,setVendorReviews,setJobApplications}=jobDetailsSlice.actions
 export default jobDetailsSlice.reducer

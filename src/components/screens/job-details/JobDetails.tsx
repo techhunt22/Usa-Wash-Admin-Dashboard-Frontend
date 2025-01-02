@@ -19,7 +19,6 @@ export const JobDetails = (): JSX.Element | null => {
   const jobs: Jobs | null = useSelector(
     (state: RootState) => state.jobDetails.job
   );
-  console.log(jobs);
 
   // Format Schedule Time And Date
   const formatScheduledTime = (scheduledTime: string | undefined | Date) => {
@@ -212,9 +211,6 @@ export const JobDetails = (): JSX.Element | null => {
           <h1 className="text-xl font-roboto font-semibold">
             Offers By Vendors
           </h1>
-          <Offers />
-          <Offers />
-          <Offers />
           <Offers />
         </div>
       </div>

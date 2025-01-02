@@ -1,6 +1,12 @@
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 export const Details = (): JSX.Element | null => {
+  const vendor = useSelector((state: RootState) => state.vendorDetails.user);
+  const jobsDone = useSelector(
+    (state: RootState) => state.vendorDetails.reviewCount
+  );
   return (
     <div className="vendor-details w-full h-[320px] bg-white rounded-xl flex">
       <div className="image w-[40%]  flex items-center justify-center">
@@ -18,7 +24,7 @@ export const Details = (): JSX.Element | null => {
               Full Name
             </p>
             <p className=" font-roboto w-[50%] flex  text-sm font-normal">
-              Michael Guzzi
+              {vendor?.full_name}
             </p>
           </div>
           <div className="w-full h-[2px] bg-background" />
@@ -27,7 +33,7 @@ export const Details = (): JSX.Element | null => {
               Phone
             </p>
             <p className=" font-roboto w-[50%] text-sm font-normal">
-              +1 333 6656 666
+              {vendor?.phone_number}
             </p>
           </div>
           <div className="w-full h-[2px] bg-background" />
@@ -36,7 +42,7 @@ export const Details = (): JSX.Element | null => {
               Email
             </p>
             <p className=" font-roboto w-[50%] text-sm font-normal">
-              micheal guzzi@gmail.com
+              {vendor?.email}
             </p>
           </div>
           <div className="w-full h-[2px] bg-background" />
@@ -44,8 +50,8 @@ export const Details = (): JSX.Element | null => {
             <p className="font-roboto text-sm font-normal text-filterText">
               Location
             </p>
-            <p className=" font-roboto  w-[50%]  text-sm font-normal">
-              California,Usa
+            <p className=" font-roboto  w-[50%]  text-sm font-normal truncate">
+              {vendor?.location}
             </p>
           </div>
           <div className="w-full h-[2px] bg-background" />
@@ -54,7 +60,7 @@ export const Details = (): JSX.Element | null => {
               Registration Date
             </p>
             <p className=" font-roboto  w-[50%]  text-sm font-normal">
-              2024-11-10
+              {vendor?.created_at?.slice(0, 10)}
             </p>
           </div>
           <div className="w-full h-[2px] bg-background" />
@@ -62,7 +68,9 @@ export const Details = (): JSX.Element | null => {
             <p className="font-roboto text-sm font-normal text-filterText">
               Jobs Done
             </p>
-            <p className=" font-roboto  w-[50%]  text-sm font-normal">15</p>
+            <p className=" font-roboto  w-[50%]  text-sm font-normal">
+              {jobsDone}
+            </p>
           </div>
           <div className="w-full h-[2px] bg-background" />
         </div>

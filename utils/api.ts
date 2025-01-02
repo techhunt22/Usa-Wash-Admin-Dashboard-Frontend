@@ -77,6 +77,27 @@ export const useAdminLogout = (onSuccess: () => void) => {
 };
 
 
+// User (Activate,DeActive,,Ban) 
+
+const userUpdation = async (url:string,token:string|null)=>{
+    const response = await axios.post(`${API_URL}${url}`,{},{
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response?.data
+
+}
+
+
+
+
+
+
+
+
+
+
 // Get Request 
 
 const fetchDetails = async(url:string,id:string|undefined,token:string|null)=>{

@@ -1,17 +1,30 @@
 import Image from "next/image";
 import { RootState } from "../../../redux/store";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 export const VendorDetails = (): JSX.Element | null => {
   const jobs = useSelector((state: RootState) => state.jobDetails.job);
   const vendorReviews = useSelector(
     (state: RootState) => state.jobDetails.vendorReviews
   );
+
+  const router = useRouter();
   return (
     <div className="vendor-info w-[63%] h-[280px] bg-white rounded-xl flex flex-col gap-2 px-2">
       <div className="header flex items-center justify-between h-20 px-8 ">
         <h1 className="font-roboto text-lg font-semibold">Vendor Info</h1>
-        <button className="w-[104px] h-[36px] font-roboto text-xs font-normal bg-primary/10 text-primary rounded-lg">
+        <button
+          disabled={!jobs?.vendor}
+          onClick={() =>
+            router.push(`/dashboard/vendor-details/${jobs?.vendor?.id}`)
+          }
+          className={`w-[104px] h-[36px] font-roboto text-xs font-normal bg-primary/10 text-primary rounded-lg ${
+            !jobs?.vendor
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-primary/10 text-primary"
+          }`}
+        >
           View Profile
         </button>
       </div>

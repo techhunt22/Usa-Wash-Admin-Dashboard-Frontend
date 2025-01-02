@@ -11,7 +11,7 @@ export const Button = ({
 
   const handlePath = useCallback(() => {
     if (path) {
-      router.replace(path);
+      router.push(path);
     }
   }, [path, router]);
 

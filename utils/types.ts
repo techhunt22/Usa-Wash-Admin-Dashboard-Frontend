@@ -291,11 +291,7 @@ export interface JobDetailsProps{
 
 // -------------------
 
-export interface job_applications {
-  id:number
-  budget:number
-  user_id:number
-}
+
 
 
 export interface Jobs{
@@ -317,7 +313,9 @@ export interface Users {
     phone_number:string,
     location:string
     profile_pic:string,
-    status:string
+    status:string,
+    created_at:string
+    about:string
 }
 
 export interface vendorReviews{
@@ -325,9 +323,24 @@ export interface vendorReviews{
       averageRating:string
 }
 
+
+interface VendorOffers{
+  id: number,
+  full_name: string,
+  profile_pic: string
+  reviews_count: number,
+  reviews_avg_rating: string,
+}
+
+export interface job_applications { 
+  user:VendorOffers | null
+  budget:number
+}
+
 export interface JobDetailsData{
   job:Jobs  |null ,
-  vendorReviews:vendorReviews|null 
+  vendorReviews:vendorReviews|null ,
+  job_applications:job_applications[] |null
 }
 
 export interface UserDetailsData{
@@ -335,5 +348,32 @@ export interface UserDetailsData{
   totalJobsPosted:number,
   jobs:Job[]
   totalPages:number
+}
 
+export interface Documents {
+  file_path:string,
+  file_name:string,
+  created_at:string
+
+}
+
+export interface reviewDetails {
+  full_name:string,
+  profile_pic:string
+}
+
+export interface Reviews {
+  id:number,
+  rating:number,
+  review:string,
+  created_at:string,
+  customer:reviewDetails
+}
+
+export interface VendorDetailsData { 
+  user:Users|null,
+  reviewCount:number|null,
+  avgRating:string|null,
+  documents:Documents[],
+  reviews:Reviews[],
 }

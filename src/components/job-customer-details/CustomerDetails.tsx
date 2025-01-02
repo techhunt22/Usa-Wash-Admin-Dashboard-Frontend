@@ -1,15 +1,23 @@
+"use client";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
+import { useRouter } from "next/navigation";
 
 export const CustomerDetails = (): JSX.Element | null => {
+  const router = useRouter();
   const jobs = useSelector((state: RootState) => state.jobDetails.job);
 
   return (
     <div className="customer-info w-[37%] h-[280px] justify-center bg-white rounded-xl flex flex-col px-2 gap-6">
       <div className="header flex items-center justify-between h-14 px-4 ">
         <h1 className="font-roboto text-lg font-semibold">Customer Info</h1>
-        <button className="w-[104px] h-[36px] font-roboto text-xs font-normal bg-primary/10 text-primary rounded-lg">
+        <button
+          onClick={() =>
+            router.push(`/dashboard/customer-details/${jobs?.user?.id}`)
+          }
+          className="w-[104px] h-[36px] font-roboto text-xs font-normal bg-primary/10 text-primary rounded-lg"
+        >
           View Profile
         </button>
       </div>

@@ -16,7 +16,7 @@ export const PendingApprovals = ({
         <p className="capitalize font-roboto font-normal text-lg">
           Vendors awaiting approval to <br /> access the platform
         </p>
-        <Button path={""} color={"text-delete"} />
+        <Button path={"/dashboard/Vendor-Approvals"} color={"text-delete"} />
       </div>
       <div className="image">
         <Image

@@ -8,6 +8,8 @@ import { Details } from "@/components/vendor-details/Details";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
 import { useCallback, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/store";
 
 export const VendorDetails = (): JSX.Element | null => {
   const [showActiveBtn, setShowActiveBtn] = useState<boolean>(false);
@@ -41,6 +43,18 @@ export const VendorDetails = (): JSX.Element | null => {
 
   //Delete Modal
   const handleDelete = useCallback(() => setDeleteModal(true), []);
+
+  //Vendor Details
+  const documents = useSelector(
+    (state: RootState) => state.vendorDetails.documents
+  );
+  const vendor = useSelector((state: RootState) => state.vendorDetails.user);
+  const reviewCount = useSelector(
+    (state: RootState) => state.vendorDetails.reviewCount
+  );
+  const avgRating = useSelector(
+    (state: RootState) => state.vendorDetails.avgRating
+  );
 
   return (
     <main className="flex flex-col px-4 gap-4 pb-10">
@@ -112,10 +126,8 @@ export const VendorDetails = (): JSX.Element | null => {
               <p className="text-sm font-roboto font-normal text-filterText">
                 About
               </p>
-              <p className="font-normal text-lg  font-roboto">
-                Michael Guzzi specializes in high-quality vehicle detailing with
-                5 years of experience in providing car wash, wax, and interior
-                cleaning services.
+              <p className="font-normal text-lg  font-roboto mt-2">
+                {vendor?.about ? vendor?.about : "No Description"}
               </p>
             </div>
             <div className="w-full h-[2px] bg-background" />
@@ -124,81 +136,35 @@ export const VendorDetails = (): JSX.Element | null => {
                 Documents Submitted
               </p>
               <div className="w-[300px] flex flex-col gap-2 h-max   items-center justify-end">
-                <div className="documents-data flex">
-                  <div>
-                    <p className="break-words  px-3 font-roboto font-normal text-sm">
-                      MichaelguzziBusiness License.pdf
-                    </p>
-                  </div>
-                  <div className="btns flex gap-1">
-                    <button className="w-[32px] h-[30px] flex items-center justify-center bg-primary rounded-full">
-                      <Image
-                        src={"/icons/download.svg"}
-                        width={18}
-                        height={18}
-                        alt="download.svg "
-                      />
-                    </button>
-                    <button className="w-[32px] h-[30px] flex items-center justify-center bg-black rounded-full">
-                      <Image
-                        src={"/icons/eye.svg"}
-                        width={18}
-                        height={18}
-                        alt="eye.svg "
-                      />
-                    </button>
-                  </div>
-                </div>
-                <div className="documents-data flex">
-                  <div>
-                    <p className="break-words  px-3 font-roboto font-normal text-sm">
-                      MichaelguzziBusiness License.pdf
-                    </p>
-                  </div>
-                  <div className="btns flex gap-1">
-                    <button className="w-[32px] h-[30px] flex items-center justify-center bg-primary rounded-full">
-                      <Image
-                        src={"/icons/download.svg"}
-                        width={18}
-                        height={18}
-                        alt="download.svg "
-                      />
-                    </button>
-                    <button className="w-[32px] h-[30px] flex items-center justify-center bg-black rounded-full">
-                      <Image
-                        src={"/icons/eye.svg"}
-                        width={18}
-                        height={18}
-                        alt="eye.svg "
-                      />
-                    </button>
-                  </div>
-                </div>
-                <div className="documents-data flex">
-                  <div>
-                    <p className="break-words  px-3 font-roboto font-normal text-sm">
-                      MichaelguzziBusiness License.pdf
-                    </p>
-                  </div>
-                  <div className="btns flex gap-1">
-                    <button className="w-[32px] h-[30px] flex items-center justify-center bg-primary rounded-full">
-                      <Image
-                        src={"/icons/download.svg"}
-                        width={18}
-                        height={18}
-                        alt="download.svg "
-                      />
-                    </button>
-                    <button className="w-[32px] h-[30px] flex items-center justify-center bg-black rounded-full">
-                      <Image
-                        src={"/icons/eye.svg"}
-                        width={18}
-                        height={18}
-                        alt="eye.svg "
-                      />
-                    </button>
-                  </div>
-                </div>
+                {documents?.length > 0
+                  ? documents?.map((item, index: number) => (
+                      <div key={index} className="documents-data flex">
+                        <div className="w-[200px] ">
+                          <p className="break-words  px-3 font-roboto font-normal text-sm">
+                            {item?.file_name}.pdf
+                          </p>
+                        </div>
+                        <div className="btns flex gap-1">
+                          <button className="w-[32px] h-[30px] flex items-center justify-center bg-primary rounded-full">
+                            <Image
+                              src={"/icons/download.svg"}
+                              width={18}
+                              height={18}
+                              alt="download.svg "
+                            />
+                          </button>
+                          <button className="w-[32px] h-[30px] flex items-center justify-center bg-black rounded-full">
+                            <Image
+                              src={"/icons/eye.svg"}
+                              width={18}
+                              height={18}
+                              alt="eye.svg "
+                            />
+                          </button>
+                        </div>
+                      </div>
+                    ))
+                  : "No Documents Submitted"}
               </div>
             </div>
           </div>
@@ -206,7 +172,9 @@ export const VendorDetails = (): JSX.Element | null => {
         <div className="reviews w-[40%] h-max pb-4  bg-white shadow-md rounded-xl flex flex-col items-center gap-6 pt-10">
           <div className="flex flex-col items-center">
             <p className="font-roboto font-medium text-base ">Overall Rating</p>
-            <p className="font-roboto text-[70px] font-bold">4.5</p>
+            <p className="font-roboto text-[70px] font-bold">
+              {avgRating ? avgRating?.slice(0, 4) : 0}
+            </p>
             <Image
               src={"/images/reviews.svg"}
               width={225}
@@ -214,13 +182,10 @@ export const VendorDetails = (): JSX.Element | null => {
               alt="reviews.svg"
             />
             <p className="font-normal text-sm font-roboto">
-              Based on 135 Reviews
+              Based on {reviewCount ? reviewCount : 0} Reviews
             </p>
           </div>
 
-          <Testimony />
-          <Testimony />
-          <Testimony />
           <Testimony />
         </div>
       </div>

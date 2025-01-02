@@ -1,10 +1,29 @@
+"use client";
 import Image from "next/image";
 import { Button } from "../view-details-btn/Button";
 import { GraphStats } from "../../../utils/types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 export const Stats = ({ name, src, width }: GraphStats): JSX.Element | null => {
+  const pathname = usePathname();
+
+  const path =
+    name == "Total Customers"
+      ? "/dashboard/user-selection/Customer-Management"
+      : "/dashboard/user-selection/Vendor-Management";
+
+  // Local state to handle fallback data
+  const [localData, setLocalData] = useState({
+    customers: null,
+    vendors: null,
+    jobs: null,
+    inactiveVendors: null,
+  });
+
+  // Extract data from Redux store
   const customers = useSelector(
     (state: RootState) => state.analytics.totalCustomers
   );
@@ -16,9 +35,32 @@ export const Stats = ({ name, src, width }: GraphStats): JSX.Element | null => {
     (state: RootState) => state.analytics.totalInactiveVendors
   );
 
+  // Fallback to localStorage if Redux store data is unavailable
+  useEffect(() => {
+    const fallbackData = {
+      customers:
+        customers !== null
+          ? customers
+          : JSON.parse(localStorage.getItem("totalCustomers") || "0"),
+      vendors:
+        vendors !== null
+          ? vendors
+          : JSON.parse(localStorage.getItem("totalVendors") || "0"),
+      jobs:
+        jobs !== null
+          ? jobs
+          : JSON.parse(localStorage.getItem("totalJobs") || "0"),
+      inactiveVendors:
+        inactiveVendors !== null
+          ? inactiveVendors
+          : JSON.parse(localStorage.getItem("totalInactiveVendors") || "0"),
+    };
+    setLocalData(fallbackData);
+  }, [customers, vendors, jobs, inactiveVendors]);
+
   const verifiedVendors =
-    vendors !== null && inactiveVendors !== null
-      ? vendors - inactiveVendors
+    localData.vendors !== null && localData.inactiveVendors !== null
+      ? localData.vendors - localData.inactiveVendors
       : 0;
 
   return (
@@ -32,17 +74,19 @@ export const Stats = ({ name, src, width }: GraphStats): JSX.Element | null => {
           </p>
           <h1 className="font-roboto font-semibold text-lg">{name}</h1>
         </div>
-        <div>
+        <div className="flex flex-col w-[130px]">
           <h1 className="text-[#1E1B39] font-bold font-roboto text-4xl">
             {name == "Total Customers"
-              ? `${customers}`
+              ? `${localData.customers}`
               : name == "Jobs Posted"
-              ? `${jobs}`
+              ? `${localData.jobs}`
               : name == "Verified Vendors"
               ? `${verifiedVendors}`
-              : `${vendors}`}
+              : `${localData.vendors}`}
           </h1>
-          <Button path={""} color={"text-primary"} />
+          {pathname === "/dashboard" && (
+            <Button path={path} color={"text-primary"} />
+          )}
         </div>
       </div>
       <div className="Image w-[50%] flex">

@@ -101,7 +101,10 @@ export const VendorManagementTable = ({
             {item?.status}
           </p>
           <p>
-            <Button path={"/dashboard/vendor-details"} color={`text-primary`} />
+            <Button
+              path={`/dashboard/vendor-details/${item?.id}`}
+              color={`text-primary`}
+            />
           </p>
         </div>
       ))}

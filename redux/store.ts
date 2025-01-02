@@ -8,7 +8,7 @@ import vendorReducer from './features/vendorTableSlice';
 import analyticsReducer from './features/analyticsSlice';
 import jobDetailsReducer from './features/jobDetailsSlice'
 import userDetailsReducer from './features/userDetailSlice'
-
+import vendorDetailsReducer from './features/vendorDetailsSlice'
 
 const persistConfig = {
     key: 'auth',
@@ -29,7 +29,8 @@ export const store = configureStore({
         vendor:vendorReducer,
         analytics:persistedAnalyticsReducer,
         jobDetails:jobDetailsReducer,
-        userDetails:userDetailsReducer
+        userDetails:userDetailsReducer,
+        vendorDetails:vendorDetailsReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
