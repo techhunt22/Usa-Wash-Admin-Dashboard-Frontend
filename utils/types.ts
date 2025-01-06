@@ -82,8 +82,8 @@ export interface ChartData {
 }
 
 export interface DataItem {
-  name: string;
-  value: number;
+  status: string;
+  count: number;
 }
 
 export interface PendingApprovalsStats {
@@ -256,7 +256,10 @@ export interface UserFilterProps {
   type:string,
   search:string | undefined,
   page:number,
-  
+}
+
+export interface GraphProps {
+  year:string
 }
 
 export interface VendorApprovalFilterProps { 
@@ -295,6 +298,7 @@ export interface JobDetailsProps{
 
 
 export interface Jobs{
+  id:string
   job_title:string,
   location:string,
   budget:number,
@@ -377,3 +381,5 @@ export interface VendorDetailsData {
   documents:Documents[],
   reviews:Reviews[],
 }
+
+

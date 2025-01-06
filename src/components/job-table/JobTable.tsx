@@ -29,7 +29,7 @@ export const JobTable = ({
   );
 
   const { data, isLoading, error } = useFetchJobs(
-    "/api/v1/jobs",
+    "/api/v1/admin/jobs",
     {
       status,
       search: search || undefined,

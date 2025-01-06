@@ -28,10 +28,10 @@ export const JobFilter = ({
   const minValue = useMemo(() => range[0], [range]);
   const maxValue = useMemo(() => range[1], [range]);
 
-  const { data: jobTypesData } = useFetchService(`/api/v1/services`);
+  const { data: jobTypesData } = useFetchService(`/api/v1/admin/services`);
   const jobTypes: JobType[] = jobTypesData?.data?.services || [];
 
-  const { data } = useFetchStatus(`/api/v1/job-statuses`);
+  const { data } = useFetchStatus(`/api/v1/admin/job-statuses`);
 
   const statuses: string[] = data?.data || [];
 

@@ -6,10 +6,14 @@ import { Suspend } from "@/components/suspendModal/SuspendModal";
 import { Testimony } from "@/components/testimony/Testimony";
 import { Details } from "@/components/vendor-details/Details";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
+import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
-import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { RootState } from "redux/store";
+import { useUserRequest } from "utils/api";
 
 export const VendorDetails = (): JSX.Element | null => {
   const [showActiveBtn, setShowActiveBtn] = useState<boolean>(false);
@@ -18,6 +22,17 @@ export const VendorDetails = (): JSX.Element | null => {
   const [activeModal, setActiveModal] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [approveModal, setApproveModal] = useState<boolean>(false);
+
+  const vendors = useSelector((state: RootState) => state.vendorDetails.user);
+  const vendorId = typeof vendors?.id === "number" ? vendors?.id : undefined;
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const { mutate: userMutate } = useUserRequest(
+    "/api/v1/admin/users",
+    vendorId ?? 0,
+    "inactive"
+  );
 
   const handleRejectChevron = useCallback(
     () => setShowRejectBtn((prev: boolean) => !prev),
@@ -56,6 +71,28 @@ export const VendorDetails = (): JSX.Element | null => {
     (state: RootState) => state.vendorDetails.avgRating
   );
 
+  // Handle Reject Action
+  const handleReject = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (vendorId !== undefined) {
+      userMutate(undefined, {
+        onSuccess: (data) => {
+          queryClient.invalidateQueries({
+            queryKey: ["users", "/api/v1/admin/users"],
+          });
+          queryClient.invalidateQueries({
+            queryKey: ["users ", " /api/v1/admin/get-user-page-data"],
+          });
+          toast.success(data?.messages[0]);
+          router.replace("/dashboard/user-selection/Vendor-Management");
+        },
+        onError: (error) => {
+          console.log(error);
+        },
+      });
+    }
+  };
+
   return (
     <main className="flex flex-col px-4 gap-4 pb-10">
       <div className="header w-full  h-[110px] mt-4 flex items-center justify-between bg-white px-8 rounded-lg">
@@ -75,6 +112,7 @@ export const VendorDetails = (): JSX.Element | null => {
             </button>
             {showRejectBtn && (
               <button
+                onClick={handleReject}
                 className="w-[93px] h-[41px] 
               absolute
              top-12 text-xs font-roboto font-normal rounded-lg flex items-center justify-center  bg-white text-customRed shadow-md"

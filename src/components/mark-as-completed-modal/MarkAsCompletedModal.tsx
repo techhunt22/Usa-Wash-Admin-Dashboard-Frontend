@@ -1,5 +1,11 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useCallback } from "react";
-import { MarkAsCompletedModal } from "utils/types";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { RootState } from "redux/store";
+import { useJobCompleted } from "utils/api";
+import { ApiError, MarkAsCompletedModal } from "utils/types";
 
 export const MarkAsCompleted = ({
   onToggle,
@@ -7,6 +13,43 @@ export const MarkAsCompleted = ({
   content,
 }: MarkAsCompletedModal): JSX.Element | null => {
   const handleToggle = useCallback(() => onToggle(false), [onToggle]);
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const job = useSelector((state: RootState) => state.jobDetails.job);
+  const id = typeof job?.id == "number" ? job?.id : undefined;
+
+  const { mutate: JobMutate } = useJobCompleted(
+    `/api/v1/admin/jobs/${id}/complete`
+  );
+
+  // Handle Job Completed
+
+  const handleJobCompleted = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (id != undefined) {
+      JobMutate(undefined, {
+        onSuccess: (data) => {
+          queryClient.invalidateQueries({
+            queryKey: ["jobs", "/api/v1/admin/jobs"],
+          });
+
+          toast.success(data?.messages[0] || "Job Status Updated");
+          onToggle(false);
+          router.push("/dashboard/Job-Management");
+        },
+        onError: (error: ApiError) => {
+          const messages = error.response?.data?.errors?.messages;
+          if (messages && messages.length > 0) {
+            toast.error(messages[0]);
+          } else {
+            console.error("An unknown error occurred.");
+          }
+        },
+      });
+    }
+  };
+
   return (
     <main className="fixed inset-0 bg-black/10 flex items-center justify-center">
       <div
@@ -26,7 +69,10 @@ export const MarkAsCompleted = ({
           >
             Cancel
           </button>
-          <button className="w-[220px] h-[58px]  text-white bg-primary   font-roboto text-lg font-medium rounded-lg">
+          <button
+            onClick={handleJobCompleted}
+            className="w-[220px] h-[58px]  text-white bg-primary   font-roboto text-lg font-medium rounded-lg"
+          >
             Mark As Completed
           </button>
         </div>

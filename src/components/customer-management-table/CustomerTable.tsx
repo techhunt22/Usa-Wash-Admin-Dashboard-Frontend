@@ -30,6 +30,7 @@ export const CustomerTable = ({
       search: searchTerm || undefined,
       page: currentPage,
     },
+
     [searchTerm, currentPage]
   );
   const dispatch = useDispatch();

@@ -8,7 +8,7 @@ interface DonutChartProps {
 
 const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
   const COLORS = ["#FFC107", "#007BFF80", "#28A74580", "#6C757D80"];
-  const totalValue = data.reduce((sum, entry) => sum + entry.value, 0);
+  const totalValue = data?.reduce((sum, entry) => sum + entry.count, 0);
 
   const getPercentage = (value: number, total: number): string => {
     return ((value / total) * 100).toFixed(0);
@@ -23,7 +23,7 @@ const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
           cy="50%"
           innerRadius={80}
           outerRadius={110}
-          dataKey="value"
+          dataKey="count"
           paddingAngle={5}
           isAnimationActive={true}
           cornerRadius={10}
@@ -43,7 +43,7 @@ const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
                 fontSize="14px"
                 fontWeight="bold"
               >
-                {getPercentage(data[index].value, totalValue)}%
+                {getPercentage(data[index].count, totalValue)}%
               </text>
             );
           }}

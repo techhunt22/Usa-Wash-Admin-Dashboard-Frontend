@@ -4,6 +4,7 @@ import React from "react";
 import { ReactQueryProvider } from "utils/ReactQueryProvider";
 import { ReduxProvider } from "utils/ReduxProvider";
 import { ProtectedRoutes } from "utils/ProtectedRoutes";
+import { ReactToastifyProvider } from "utils/ReactToastifyProvider";
 
 export const metadata: Metadata = {
   title: "USA-WASH",
@@ -21,7 +22,9 @@ export default function RootLayout({
         <ReduxProvider>
           <ReactQueryProvider>
             <ProtectedRoutes>
-              <div>{children}</div>
+              <ReactToastifyProvider>
+                <div>{children}</div>
+              </ReactToastifyProvider>
             </ProtectedRoutes>
           </ReactQueryProvider>
         </ReduxProvider>

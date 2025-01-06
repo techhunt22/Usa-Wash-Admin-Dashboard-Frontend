@@ -94,7 +94,7 @@ export const VendorManagementTable = ({
                 ? "text-primary bg-primary/10"
                 : item?.status == "inactive"
                 ? "text-progress bg-progress/10"
-                : ""
+                : "text-delete bg-delete/10"
             }
             rounded-lg flex items-center justify-center text-xs `}
           >

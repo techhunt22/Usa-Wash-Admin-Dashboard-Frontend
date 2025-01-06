@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { AdminLoginProps, JobTableFilterProps, UserFilterProps, VendorApprovalFilterProps } from "./types";
+import { AdminLoginProps, GraphProps, JobTableFilterProps, UserFilterProps, VendorApprovalFilterProps } from "./types";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 
@@ -33,7 +33,7 @@ export const useToken = () => {
     return token;
 };
 
-// Post Requests
+// --------- Post Requests
 
  const AdminLogin = async (data: AdminLoginProps) => {
     const response = await axios.post(`${API_URL}/api/v1/login`, data);
@@ -79,26 +79,71 @@ export const useAdminLogout = (onSuccess: () => void) => {
 
 // User (Activate,DeActive,,Ban) 
 
-const userUpdation = async (url:string,token:string|null)=>{
-    const response = await axios.post(`${API_URL}${url}`,{},{
+const userRequest = async (url:string,token:string|null,id:number,status:string)=>{
+    const payload = {
+        _method:'PUT'
+    }
+    const response = await axios.post(`${API_URL}${url}/${id}/${status}`,payload,{
         headers:{
             Authorization:`Bearer ${token}`
         }
     })
     return response?.data
+}
 
+export const useUserRequest = (url:string,id:number,status:string)=> {
+    const reduxToken = useSelector((state: RootState) => state.auth.token);
+    const token = getToken(reduxToken);
+    return useMutation({
+        mutationFn:()=>userRequest(url,token,id,status)
+    })
 }
 
 
+// Delete (User)
+
+const deleteRequest= async (url:string,id:number,token:string|null)=>{
+    const response = await axios.delete(`${API_URL}${url}/${id}`,{
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response?.data
+}
+
+export const useDeleteRequest = (url:string,id:number)=>{
+    const reduxToken = useSelector((state: RootState) => state.auth.token);
+    const token = getToken(reduxToken);
+    return useMutation({
+        mutationFn:()=>deleteRequest(url,id,token)
+    })
+}
 
 
+// Job (Mark As Completed)
 
+const jobCompleted = async (url:string,token:string|null)=>{
+    const payload = {
+        _method:'PUT'
+    }
+    const response  = await axios.post(`${API_URL}${url}`,payload,{
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response?.data
+}
 
+export const useJobCompleted = (url:string)=>{
+    const reduxToken = useSelector((state: RootState) => state.auth.token);
+    const token = getToken(reduxToken);
+    return useMutation({
+        mutationKey:[url,token],
+        mutationFn:()=>jobCompleted(url,token)
+    })
+}
 
-
-
-
-// Get Request 
+// -------- Get Request 
 
 const fetchDetails = async(url:string,id:string|undefined,token:string|null)=>{
     const response = await axios.get(`${API_URL}${url}/${id}`,{
@@ -113,16 +158,9 @@ export const useFetchDetails= (url:string,id:string|undefined)=>{
     const reduxToken = useSelector((state: RootState) => state.auth.token);
     const token = getToken(reduxToken);
     return useQuery({
-        queryKey: [url,id,token],
+        queryKey: ['users',url,id,token],
         queryFn: () => fetchDetails(url,id,token),
-        enabled: !!token,
-        retry: (failureCount, error) => {
-            if (axios.isAxiosError(error) && error.response?.status === 401) {
-                return false;
-            }
-            return failureCount < 3;
-        },
-        staleTime: 5 * 60 * 1000,
+        
     });
 }
 
@@ -145,16 +183,9 @@ export const useFetchJobs = (url:string,params:JobTableFilterProps,dependencies:
     const reduxToken = useSelector((state: RootState) => state.auth.token);
     const token = getToken(reduxToken);
     return useQuery({
-        queryKey: [url, params, ...dependencies],
+        queryKey: ["jobs",url, params, ...dependencies],
         queryFn: () => fetchJobs(url, params,token),
-        enabled: !!token,
-        retry: (failureCount, error) => {
-            if (axios.isAxiosError(error) && error.response?.status === 401) {
-                return false;
-            }
-            return failureCount < 3;
-        },
-        staleTime: 5 * 60 * 1000,
+      
     });
 }
 
@@ -248,7 +279,7 @@ export const useFetchUsers = (url: string, params: UserFilterProps, dependencies
     const reduxToken = useSelector((state: RootState) => state.auth.token);
     const token = getToken(reduxToken);
     return useQuery({
-        queryKey: [url, params, ...dependencies],
+        queryKey: ['users',url, params, ...dependencies],
         queryFn: () => fetchUsers(url, token, params),
         enabled: !!token,
         retry: (failureCount, error) => {
@@ -317,6 +348,28 @@ export const useFetchApplicationData = (url:string)=>{
         },
         staleTime: 5 * 60 * 1000,
     })
+}
+
+const JobActivity = async (url:string,token:string|null,params:GraphProps)=>{
+    const response = await axios.get(`${API_URL}${url}`,{
+        params:{
+           ...params
+        },
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response?.data?.data
+}
+
+export const useJobActivity =  (url:string,params:GraphProps,dependencies: unknown[])=>{
+    const reduxToken = useSelector((state: RootState) => state.auth.token);
+    const token = getToken(reduxToken);
+    return useQuery({
+        queryKey:[url,token,dependencies],
+        queryFn:()=>JobActivity(url,token,params)
+    })
+
 }
 
 
