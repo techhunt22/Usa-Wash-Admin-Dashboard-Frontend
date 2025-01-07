@@ -12,9 +12,9 @@ export const Logout = ({ onToggle }: LogoutModal): JSX.Element | null => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { mutate: logout } = useAdminLogout(() => {
+    router.push("/");
     localStorage.removeItem("token");
     dispatch(clearToken());
-    router.push("/");
   });
 
   const handleLogout = useCallback(() => {

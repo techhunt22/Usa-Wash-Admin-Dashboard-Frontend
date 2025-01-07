@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { Button } from "../view-details-btn/Button";
 import { PendingApprovalsStats } from "utils/types";
+import { PendingApprovalGraph } from "../pending-approval-graph/PendingApprovalGraph";
 
 export const PendingApprovals = ({
   width,
@@ -18,13 +18,8 @@ export const PendingApprovals = ({
         </p>
         <Button path={"/dashboard/Vendor-Approvals"} color={"text-delete"} />
       </div>
-      <div className="image">
-        <Image
-          src={"/images/pending-approvals.svg"}
-          width={170}
-          height={170}
-          alt="pending-approvals.svg"
-        />
+      <div className="graph">
+        <PendingApprovalGraph />
       </div>
     </div>
   );

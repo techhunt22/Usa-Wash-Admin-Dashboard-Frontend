@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { ApiError } from "utils/types";
 import { useDispatch } from "react-redux";
 import { setToken, setData } from "../../../redux/features/authSlice";
+import { Loader } from "../loader/Loader";
 
 export const Login = (): JSX.Element | null => {
   const router = useRouter();
@@ -22,6 +23,8 @@ export const Login = (): JSX.Element | null => {
   const handleInputChange = (field: string, value: string) => {
     setItems((prev) => ({ ...prev, [field]: value }));
   };
+
+  // Handle Submit
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,10 +87,12 @@ export const Login = (): JSX.Element | null => {
         />
         <button
           type="submit"
-          className="w-[350px] h-[60px] rounded-2xl bg-primary text-white"
+          className={`w-[350px] h-[60px] rounded-2xl flex items-center justify-center text-white ${
+            isPending ? "bg-white" : "bg-primary"
+          }`}
           disabled={isPending}
         >
-          {isPending ? "Logging in..." : "Login"}
+          {isPending ? <Loader /> : "Login"}
         </button>
         {isError && (
           <p className="font-roboto font-semibold text-delete">

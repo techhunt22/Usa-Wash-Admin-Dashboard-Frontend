@@ -9,8 +9,9 @@ import { Loader } from "../loader/Loader";
 const COLORS: string[] = ["#FFC107", "#007BFF80", "#28A74580", "#6C757D80"];
 
 export const JobActivity = (): JSX.Element | null => {
-  const [date, setDate] = useState<Date>(new Date("2024-11-22"));
+  const [date, setDate] = useState<Date>(new Date());
 
+  // Format the date to get YYYY-MM-DD (without time)
   const formattedDate: string = date.toISOString().slice(0, 10);
 
   // Fetch data using the hook
@@ -25,11 +26,11 @@ export const JobActivity = (): JSX.Element | null => {
   if (!data) {
     return (
       <div className="w-[53%] h-[90%] items-center justify-center">
-        {" "}
-        <Loader /> No Jobs ....
+        <Loader />
       </div>
     );
   }
+
   if (isLoading) {
     return <Loader />;
   }
@@ -48,11 +49,13 @@ export const JobActivity = (): JSX.Element | null => {
           className="w-[85px] h-[36px] outline-none text-sm text-jobFilterText border-[1px] rounded-lg border-jobFilter"
           onChange={(e) => {
             const selectedYear = e.target.value;
-            setDate(new Date(`${selectedYear}-01-01`)); // Example logic to update the year
+
+            setDate(new Date(`${selectedYear}-01-01`));
           }}
+          value={date.getFullYear()}
         >
-          <option>2024</option>
-          <option>2023</option>
+          <option value="2025">2025</option>
+          <option value="2024">2024</option>
         </select>
       </div>
 
@@ -61,8 +64,8 @@ export const JobActivity = (): JSX.Element | null => {
 
       {/* Graph and Statistics */}
       <div className="graph-container w-full h-full flex">
-        {/* Donut Chart */}
         <div className="graph w-[40%] h-full">
+          {/* Donut Chart */}
           <DonutChart data={data} />
         </div>
 

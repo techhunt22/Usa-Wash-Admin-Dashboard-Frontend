@@ -8,20 +8,30 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { ChartData } from "../../../utils/types";
 
-const data: ChartData[] = [
-  { name: "Jan", jobs: 4000 },
-  { name: "Feb", jobs: 3000 },
-  { name: "Mar", jobs: 2000 },
-  { name: "Apr", jobs: 2780 },
-  { name: "May", jobs: 1890 },
-  { name: "Jun", jobs: 2390 },
-  { name: "Jul", jobs: 3490 },
+const monthNames = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
 ];
 
-export default class Chart extends PureComponent {
+interface ChartProps {
+  data: { month: number; job_posts: number }[];
+}
+
+export default class Chart extends PureComponent<ChartProps> {
   render() {
+    const { data } = this.props;
+
     return (
       <ResponsiveContainer width="100%" height={200}>
         <AreaChart
@@ -34,14 +44,14 @@ export default class Chart extends PureComponent {
           }}
         >
           {/* Cartesian Grid with only X-Axis grid lines */}
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />{" "}
-          {/* Set vertical to false to hide Y grid lines */}
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
           {/* X-Axis with labels for months */}
           <XAxis
-            dataKey="name"
+            dataKey="month"
             axisLine={false} // Remove axis line for X-axis
             tickLine={false} // Remove ticks for X-axis
             tick={{ fill: "gray" }} // Set color of X-axis ticks
+            tickFormatter={(month) => monthNames[month - 1]} // Convert month number to name
           />
           {/* Remove Y-Axis */}
           <YAxis
@@ -50,11 +60,14 @@ export default class Chart extends PureComponent {
             hide={true} // Hide the entire Y-Axis
           />
           {/* Tooltip to show data on hover */}
-          <Tooltip />
+          <Tooltip
+            formatter={(value) => [`${value} job posts`, "Jobs"]}
+            labelFormatter={(label) => `Month: ${monthNames[label - 1]}`}
+          />
           {/* Area line */}
           <Area
             type="monotone"
-            dataKey="jobs"
+            dataKey="job_posts"
             stroke="#2F74FA"
             fill="#2F74FABF"
             strokeWidth={3}

@@ -372,4 +372,27 @@ export const useJobActivity =  (url:string,params:GraphProps,dependencies: unkno
 
 }
 
+const JobTimeLine= async (url:string,token:string|null,params:GraphProps)=>{
+    const response = await axios.get(`${API_URL}${url}`,{
+        params:{
+           ...params
+        },
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response?.data?.data
+}
+
+export const useJobTimeline =  (url:string,params:GraphProps,dependencies: unknown[])=>{
+    const reduxToken = useSelector((state: RootState) => state.auth.token);
+    const token = getToken(reduxToken);
+    return useQuery({
+        queryKey:[url,token,dependencies],
+        queryFn:()=>JobTimeLine(url,token,params)
+    })
+
+}
+
+
 
