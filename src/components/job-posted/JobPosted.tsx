@@ -36,7 +36,7 @@ export const JobPosted = (): JSX.Element | null => {
 
   if (!data) {
     return (
-      <div className="w-[53%] h-[90%] items-center justify-center">
+      <div className="w-[44%] h-[90%] items-center justify-center">
         {" "}
         <Loader />
       </div>

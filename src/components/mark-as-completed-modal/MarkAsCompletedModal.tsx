@@ -41,6 +41,8 @@ export const MarkAsCompleted = ({
         onError: (error: ApiError) => {
           const messages = error.response?.data?.errors?.messages;
           if (messages && messages.length > 0) {
+            onToggle(false);
+
             toast.error(messages[0]);
           } else {
             console.error("An unknown error occurred.");

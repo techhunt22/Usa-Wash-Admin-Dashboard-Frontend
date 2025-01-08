@@ -6,16 +6,20 @@ import { RootState } from "redux/store";
 export const PendingApprovalGraph = (): JSX.Element | null => {
   const value =
     useSelector((state: RootState) => state.analytics.totalInactiveVendors) ??
+    Number(localStorage.getItem("totalInactiveVendors")) ??
     0;
+
   const total =
-    useSelector((state: RootState) => state.analytics.totalVendors) ?? 0;
+    useSelector((state: RootState) => state.analytics.totalVendors) ??
+    Number(localStorage.getItem("totalVendors")) ??
+    0;
 
   const data = [
-    { name: "Progress", value }, // Progress value
-    { name: "Remaining", value: total - value }, // Remaining value
+    { name: "Progress", value },
+    { name: "Remaining", value: total - value },
   ];
 
-  const COLORS = ["#DC3545", "#F5F5F5"]; // Red for progress, light gray for remaining
+  const COLORS = ["#DC3545", "#F5F5F5"];
   return (
     <div style={{ position: "relative", width: 150, height: 150 }}>
       {/* Pie Chart */}

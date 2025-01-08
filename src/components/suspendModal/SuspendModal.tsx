@@ -50,7 +50,6 @@ export const Suspend = ({
         queryClient.invalidateQueries({
           queryKey: ["users ", " /api/v1/admin/get-user-page-data"],
         });
-        console.log(data);
         toast.success(data?.messages[0]);
         onToggle(false);
         router.replace(redirectPath);
@@ -58,6 +57,8 @@ export const Suspend = ({
       onError: (error: ApiError) => {
         const messages = error.response?.data?.errors?.messages;
         if (messages && messages.length > 0) {
+          onToggle(false);
+
           toast.error(messages[0]);
         } else {
           console.error("An unknown error occurred.");

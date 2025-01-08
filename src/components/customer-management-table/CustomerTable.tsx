@@ -73,7 +73,7 @@ export const CustomerTable = ({
           key={index}
           className={`
          ${index % 2 === 0 ? "bg-tableBg" : "bg-white"}
-         table-data grid grid-cols-4 items-center gap-x-48 h-14 gap-10
+         table-data grid grid-cols-4 items-center gap-x-48 h-14 gap-10 text-sm
          `}
         >
           <p className="flex gap-2 items-center ">

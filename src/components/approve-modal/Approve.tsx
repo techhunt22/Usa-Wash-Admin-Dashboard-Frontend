@@ -44,20 +44,25 @@ export const Approve = ({
     if (id !== undefined) {
       userMutate(undefined, {
         onSuccess: (data) => {
-          queryClient.invalidateQueries({
+          queryClient.refetchQueries({
             queryKey: ["users", "/api/v1/admin/users"],
           });
-          queryClient.invalidateQueries({
-            queryKey: ["users ", " /api/v1/admin/get-user-page-data"],
+          queryClient.refetchQueries({
+            queryKey: ["users ", "/api/v1/admin/get-user-page-data"],
           });
-          console.log(data);
-          toast.success(data?.messages[0]);
+
+          // queryClient.invalidateQueries({
+          //   queryKey: ["analytics", "/api/v1/admin/dashboard"],
+          // });
+
           onToggle(false);
+          toast.success(data?.messages[0]);
           router.replace(redirectPath);
         },
         onError: (error: ApiError) => {
           const messages = error.response?.data?.errors?.messages;
           if (messages && messages.length > 0) {
+            onToggle(false);
             toast.error(messages[0]);
           } else {
             console.error("An unknown error occurred.");

@@ -97,8 +97,8 @@ export const JobDetails = (): JSX.Element | null => {
             />
             Mark As Completed
           </button>
-          <button
-            className={`w-[121px] h-[55px] capitalize  rounded-xl  ${
+          <div
+            className={`w-[121px] h-[55px] capitalize  rounded-xl flex items-center justify-center ${
               jobs?.status === "completed"
                 ? "text-completed bg-completed/10"
                 : jobs.status === "in-progress"
@@ -111,7 +111,7 @@ export const JobDetails = (): JSX.Element | null => {
             } `}
           >
             {jobs?.status}
-          </button>
+          </div>
           <button
             onClick={handleDelete}
             className="w-[106px] h-[55px] bg-delete/10 text-delete  rounded-xl flex justify-center items-center gap-2"

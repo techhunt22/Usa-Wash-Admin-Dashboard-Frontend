@@ -1,6 +1,6 @@
 "use client";
 import { Active } from "@/components/active-modal/Active";
-import { Approve } from "@/components/approve-modal/Aprrove";
+import { Approve } from "@/components/approve-modal/Approve";
 import { Delete } from "@/components/delete-modal/Delete";
 import { Suspend } from "@/components/suspendModal/SuspendModal";
 import { Testimony } from "@/components/testimony/Testimony";
@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { RootState } from "redux/store";
 import { useUserRequest } from "utils/api";
+import { ApiError } from "utils/types";
 
 export const VendorDetails = (): JSX.Element | null => {
   const [showActiveBtn, setShowActiveBtn] = useState<boolean>(false);
@@ -83,11 +84,19 @@ export const VendorDetails = (): JSX.Element | null => {
           queryClient.invalidateQueries({
             queryKey: ["users ", " /api/v1/admin/get-user-page-data"],
           });
+          // queryClient.invalidateQueries({
+          //   queryKey: ["analytics", "/api/v1/admin/dashboard"],
+          // });
           toast.success(data?.messages[0]);
           router.replace("/dashboard/user-selection/Vendor-Management");
         },
-        onError: (error) => {
-          console.log(error);
+        onError: (error: ApiError) => {
+          const messages = error.response?.data?.errors?.messages;
+          if (messages && messages.length > 0) {
+            toast.error(messages[0]);
+          } else {
+            console.error("An unknown error occurred.");
+          }
         },
       });
     }

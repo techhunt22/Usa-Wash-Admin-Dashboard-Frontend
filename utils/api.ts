@@ -337,16 +337,11 @@ export const useFetchApplicationData = (url:string)=>{
     const reduxToken = useSelector((state: RootState) => state.auth.token);
     const token = getToken(reduxToken);
     return useQuery({
-        queryKey:[url],
-        queryFn:()=>fetchApplicationData(url,token),
-        enabled: !!token,
-        retry: (failureCount, error) => {
-            if (axios.isAxiosError(error) && error.response?.status === 401) {
-                return false;
-            }
-            return failureCount < 3;
-        },
-        staleTime: 5 * 60 * 1000,
+        queryKey:["analytics",url],
+        queryFn:()=>fetchApplicationData(url,token),  
+        staleTime: 0, 
+        retry: 1, 
+        refetchOnWindowFocus: true,
     })
 }
 

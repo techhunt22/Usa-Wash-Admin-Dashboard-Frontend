@@ -51,7 +51,6 @@ export const Active = ({
           queryClient.invalidateQueries({
             queryKey: ["users ", " /api/v1/admin/get-user-page-data"],
           });
-          console.log(data);
           toast.success(data?.messages[0]);
           onToggle(false);
           router.replace(redirectPath);
@@ -59,6 +58,7 @@ export const Active = ({
         onError: (error: ApiError) => {
           const messages = error.response?.data?.errors?.messages;
           if (messages && messages.length > 0) {
+            onToggle(false);
             toast.error(messages[0]);
           } else {
             console.error("An unknown error occurred.");
@@ -67,6 +67,7 @@ export const Active = ({
       });
     }
   };
+
   return (
     <main className="fixed inset-0 bg-black/10 flex items-center justify-center">
       <div

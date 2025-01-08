@@ -18,7 +18,8 @@ import { useDispatch } from "react-redux";
 
 export const Dashboard = (): JSX.Element | null => {
   const dispatch = useDispatch();
-  const { data } = useFetchApplicationData(`/api/v1/admin/dashboard`);
+  const url = `/api/v1/admin/dashboard`;
+  const { data } = useFetchApplicationData(url);
   useEffect(() => {
     if (data) {
       const totalJobs = data?.data?.jobActivity?.reduce(

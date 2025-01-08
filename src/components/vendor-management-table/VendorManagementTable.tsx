@@ -61,7 +61,7 @@ export const VendorManagementTable = ({
 
   return (
     <div className="table w-[98%] h-max pb-4 px-2 bg-white rounded-2xl ">
-      <div className="table-headings font-roboto text-sm font-semibold grid text-darkGray grid-cols-5 gap-x-48 items-center h-14 px-2">
+      <div className="table-headings font-roboto text-sm font-semibold grid text-darkGray grid-cols-5  lg:gap-x-32  gap-x-48 items-center h-14 px-2">
         <p>Vendor Name</p>
         <p>Email</p>
         <p>Phone</p>
@@ -73,7 +73,7 @@ export const VendorManagementTable = ({
           key={index}
           className={`
          ${index % 2 === 0 ? "bg-tableBg" : "bg-white"}
-         table-data grid grid-cols-5 items-center gap-x-48 h-14 gap-10 text-sm font-roboto font-normal
+         table-data grid grid-cols-5 items-center gap-x-48 lg:gap-x-28 h-14 gap-10 text-sm font-roboto font-normal 
          `}
         >
           <p className="flex gap-2 items-center">

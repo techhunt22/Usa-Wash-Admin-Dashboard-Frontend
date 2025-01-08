@@ -33,7 +33,7 @@ export const SideNav = (): JSX.Element | null => {
               ImageUrl={"/icons/dashboard.svg"}
               ActiveImageUrl={"/icons/dashboard-blue.svg"}
             />
-            <div className="w-full  flex items-center px-2 ">
+            <div className="w-full  flex items-center px-2  ">
               <UserSelection onToggle={setIsUserSelectionExpanded} />
             </div>
             <div

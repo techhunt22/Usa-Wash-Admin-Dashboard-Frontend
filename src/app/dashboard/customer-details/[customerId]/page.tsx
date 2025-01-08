@@ -22,10 +22,13 @@ const Page = (): JSX.Element | null => {
   const { data } = useFetchDetails(`/api/v1/admin/get-user-page-data`, id);
 
   useEffect(() => {
+    dispatch(clearJobs());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (data) {
       dispatch(setUserDetails(data?.data?.user));
       dispatch(setTotalJobsPosted(data?.data?.totalJobsPosted));
-      dispatch(clearJobs());
       dispatch(setJobs(data?.data?.jobs?.data));
       const totalPages = Math.ceil(
         data?.data?.totalJobsPosted / data?.data?.jobs?.per_page
