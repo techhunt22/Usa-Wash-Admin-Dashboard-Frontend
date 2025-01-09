@@ -6,7 +6,9 @@ const initialState:AuthState = {
     token: null,
    data:{
     name:null,
-    image:null
+    image:null,
+    id:null,
+    email:null
    }
 }
 
@@ -25,6 +27,8 @@ const authSlice= createSlice({
         setData:(state,action)=>{
             state.data.name=action.payload.name
             state.data.image=action.payload.image
+            state.data.email=action.payload.email
+            state.data.id=action.payload.id
         }
     }
 })

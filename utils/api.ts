@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { AdminLoginProps, GraphProps, JobTableFilterProps, UserFilterProps, VendorApprovalFilterProps } from "./types";
+import { AdminBody, AdminLoginProps, GraphProps, JobTableFilterProps, UserFilterProps, VendorApprovalFilterProps } from "./types";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 
@@ -42,6 +42,7 @@ export const useToken = () => {
 
 export const useAdminLogin = () => {
     return useMutation({
+        mutationKey:['login'],
         mutationFn: AdminLogin
     });
 };
@@ -320,6 +321,38 @@ export const useFetchInactiveVendors = (url: string, params: VendorApprovalFilte
         staleTime: 5 * 60 * 1000,
     });
 };
+
+
+// Admin Details Update 
+
+
+
+const adminUpdate = async (url:string,token:string|null,body:AdminBody)=>{
+    const formData = new FormData();
+
+  if (body.full_name) formData.append("full_name", body.full_name);
+  if (body.email) formData.append("email", body.email);
+  if (body.profile_pic) formData.append("profile_pic", body.profile_pic); // File
+  formData.append("_method", body._method);
+  if (body.old_password) formData.append("old_password", body.old_password);
+  if (body.password) formData.append("password", body.password);
+
+    const response = await axios.post(`${API_URL}${url}`,formData,{
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response?.data
+}
+
+export const useAdminUpdate = (url:string)=>{
+    const reduxToken = useSelector((state: RootState) => state.auth.token)
+    const token = getToken(reduxToken)
+    return useMutation({
+        mutationKey:[url],
+        mutationFn:(body:AdminBody)=>adminUpdate(url,token,body)
+    })
+}
 
 
 // Get Analytics 

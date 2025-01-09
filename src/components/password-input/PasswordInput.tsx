@@ -8,6 +8,7 @@ export const PasswordInput = ({
   height,
   name,
   onChange,
+  value,
 }: PasswordInputProps & {
   onChange: (value: string) => void;
 }): JSX.Element | null => {
@@ -22,6 +23,7 @@ export const PasswordInput = ({
         placeholder="**********"
         className={`${width} outline-none relative ${height} px-2 rounded-2xl border-[1px] border-[#ADADAD]`}
         onChange={(e) => onChange(e.target.value)}
+        value={value}
       />
       <button
         type="button"

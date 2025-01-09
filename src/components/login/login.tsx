@@ -39,6 +39,8 @@ export const Login = (): JSX.Element | null => {
         const payload = {
           name: data?.data?.user?.full_name,
           image: data?.data?.user?.profile_pic,
+          id: data?.data?.user?.id,
+          email: data?.data?.user?.email,
         };
         dispatch(setData(payload));
         setItems({ email: "", password: "" });
@@ -77,12 +79,14 @@ export const Login = (): JSX.Element | null => {
           width="w-[350px]"
           height="h-[82px]"
           name="Email"
+          value={items.email}
           onChange={(value: string) => handleInputChange("email", value)}
         />
         <PasswordInput
           width="w-[350px]"
           height="h-[60px]"
           name="Password"
+          value={items.password}
           onChange={(value: string) => handleInputChange("password", value)}
         />
         <button

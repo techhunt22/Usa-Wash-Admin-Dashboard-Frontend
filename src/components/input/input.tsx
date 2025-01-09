@@ -7,6 +7,7 @@ export const Input = ({
   type,
   placeholder,
   onChange,
+  value,
 }: InputProps & { onChange: (value: string) => void }): JSX.Element | null => {
   return (
     <div className={`input ${width} ${height} flex flex-col gap-1`}>
@@ -17,6 +18,7 @@ export const Input = ({
         className={`${width} outline-none ${height} border-[1px] border-customGray rounded-xl text-sm font-roboto font-medium px-4`}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
+        value={value}
       />
     </div>
   );

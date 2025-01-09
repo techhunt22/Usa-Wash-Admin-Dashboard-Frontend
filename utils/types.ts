@@ -4,12 +4,14 @@ export interface InputProps {
   width:string,
   height:string,
   type:string,
+  value:string | undefined
 }
 
 export interface PasswordInputProps {
   name:string,
   width:string,
   height:string,
+  value:string | undefined
 }
 
 export interface ButtonProps  {
@@ -160,7 +162,9 @@ export interface AuthState{
   token:string|null,
   data:{
     name:string|null,
-  image:string|null
+  image:string|null,
+  id:string|null,
+  email:string|null
   }
 }
 
@@ -382,4 +386,12 @@ export interface VendorDetailsData {
   reviews:Reviews[],
 }
 
+export interface AdminBody {
+  full_name : string | undefined
+  email : string | undefined
+  old_password :string | undefined
+  password : string | undefined
+  profile_pic :File | undefined
+  _method :string 
+}
 
