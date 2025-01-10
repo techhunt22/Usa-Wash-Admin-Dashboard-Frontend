@@ -15,7 +15,7 @@ export const JobActivity = (): JSX.Element | null => {
   const formattedDate: string = date.toISOString().slice(0, 10);
 
   // Fetch data using the hook
-  const { data, isLoading } = useJobActivity(
+  const { data, isLoading, error } = useJobActivity(
     "/api/v1/admin/get-jobs-activity",
     {
       year: formattedDate,
@@ -33,6 +33,9 @@ export const JobActivity = (): JSX.Element | null => {
 
   if (isLoading) {
     return <Loader />;
+  }
+  if (error) {
+    return <div>Error:{error?.message}</div>;
   }
 
   return (

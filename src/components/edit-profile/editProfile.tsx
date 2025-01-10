@@ -1,13 +1,14 @@
 import Image from "next/image";
 import { useCallback, useState } from "react";
 import { Input } from "../input/input";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { useAdminUpdate } from "utils/api";
 import { AdminBody, ApiError } from "utils/types";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { QueryClient } from "@tanstack/react-query";
+import { clearData, SetName } from "../../../redux/features/authSlice";
 
 export const EditProfile = (): JSX.Element | null => {
   const [image, setImage] = useState<File | undefined>();
@@ -17,8 +18,7 @@ export const EditProfile = (): JSX.Element | null => {
   const email = useSelector((state: RootState) => state.auth.data?.email);
   const id = useSelector((state: RootState) => state.auth.data?.id);
   const router = useRouter();
-
-  const queryClient = new QueryClient();
+  const dispatch = useDispatch();
 
   const handleImageUpload = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,13 +40,13 @@ export const EditProfile = (): JSX.Element | null => {
 
   const { mutate: userMutate } = useAdminUpdate(`/api/v1/admin/users/${id}`);
 
+  // Handle Save
   const handleSave = () => {
-    console.log(payload);
     userMutate(payload, {
       onSuccess: (data) => {
-        queryClient.refetchQueries({
-          queryKey: ["login"],
-        });
+        dispatch(clearData());
+
+        dispatch(SetName(name));
         toast.success(data?.messages[0]);
         setName("");
         router.push("/dashboard");
@@ -61,6 +61,8 @@ export const EditProfile = (): JSX.Element | null => {
       },
     });
   };
+
+  // Handle Cancel
 
   const handleCancel = () => {
     setName("");

@@ -47,9 +47,7 @@ export const Suspend = ({
         queryClient.invalidateQueries({
           queryKey: ["users", "/api/v1/admin/users"],
         });
-        queryClient.invalidateQueries({
-          queryKey: ["users ", " /api/v1/admin/get-user-page-data"],
-        });
+
         toast.success(data?.messages[0]);
         onToggle(false);
         router.replace(redirectPath);

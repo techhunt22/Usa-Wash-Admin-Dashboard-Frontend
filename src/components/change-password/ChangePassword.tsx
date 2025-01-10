@@ -30,6 +30,7 @@ export const ChangePassword = (): JSX.Element | null => {
 
   const { mutate: userMutate } = useAdminUpdate(`/api/v1/admin/users/${id}`);
 
+  // Handle Save
   const handleSave = () => {
     console.log(old_password, password, confirm_password);
     if (password === confirm_password) {
@@ -52,6 +53,7 @@ export const ChangePassword = (): JSX.Element | null => {
     }
   };
 
+  // Handle Cancel
   const handleCancel = () => {
     setOldPassword("");
     setConfirmPassword("");

@@ -16,7 +16,7 @@ export const JobPosted = (): JSX.Element | null => {
   const formattedDate: string = date.toISOString().slice(0, 10);
 
   // Fetch data using the hook
-  const { data, isLoading } = useJobTimeline(
+  const { data, isLoading, error } = useJobTimeline(
     "/api/v1/admin/get-total-jobs-timeline",
     {
       year: formattedDate,
@@ -29,8 +29,9 @@ export const JobPosted = (): JSX.Element | null => {
     0
   );
 
-  const percentage =
-    ((totalJobs - data?.previous_year) / data?.previous_year) * 100;
+  const percentage = Math.ceil(
+    ((totalJobs - data?.previous_year) / data?.previous_year) * 100
+  );
 
   const percentageValue = !isFinite(percentage) ? 0 : percentage;
 
@@ -45,6 +46,10 @@ export const JobPosted = (): JSX.Element | null => {
 
   if (isLoading) {
     return <Loader />;
+  }
+
+  if (error) {
+    return <div>Error:{error?.message}</div>;
   }
 
   return (

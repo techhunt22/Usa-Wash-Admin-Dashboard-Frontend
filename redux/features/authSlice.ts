@@ -29,9 +29,15 @@ const authSlice= createSlice({
             state.data.image=action.payload.image
             state.data.email=action.payload.email
             state.data.id=action.payload.id
+        },
+        clearData:(state)=>{
+            state.data.name=null
+        },
+        SetName:(state,action)=>{
+            state.data.name=action.payload
         }
     }
 })
 
-export const { setToken, clearToken,setData } = authSlice.actions;
+export const { setToken, clearToken,setData,clearData,SetName } = authSlice.actions;
 export default authSlice.reducer;

@@ -159,8 +159,9 @@ export const useFetchDetails= (url:string,id:string|undefined)=>{
     const reduxToken = useSelector((state: RootState) => state.auth.token);
     const token = getToken(reduxToken);
     return useQuery({
-        queryKey: ['users',url,id,token],
+        queryKey: ['Users',url,id,token],
         queryFn: () => fetchDetails(url,id,token),
+        retry:2,
         
     });
 }
@@ -186,6 +187,7 @@ export const useFetchJobs = (url:string,params:JobTableFilterProps,dependencies:
     return useQuery({
         queryKey: ["jobs",url, params, ...dependencies],
         queryFn: () => fetchJobs(url, params,token),
+        retry:2,
       
     });
 }
@@ -366,17 +368,20 @@ const fetchApplicationData=async (url:string,token:string|null)=>{
     return response?.data
 }
 
-export const useFetchApplicationData = (url:string)=>{
+export const useFetchApplicationData = (url:string) => {
     const reduxToken = useSelector((state: RootState) => state.auth.token);
     const token = getToken(reduxToken);
     return useQuery({
-        queryKey:["analytics",url],
-        queryFn:()=>fetchApplicationData(url,token),  
-        staleTime: 0, 
-        retry: 1, 
-        refetchOnWindowFocus: true,
-    })
-}
+      queryKey: ['analytics', url],
+      queryFn: () => {
+        console.log('Analytics fetch triggered at:', new Date().toISOString());
+        return fetchApplicationData(url, token);
+      },
+      staleTime: 0,
+      retry: 1,
+      refetchOnWindowFocus: true,
+    });
+  }
 
 const JobActivity = async (url:string,token:string|null,params:GraphProps)=>{
     const response = await axios.get(`${API_URL}${url}`,{
@@ -395,7 +400,8 @@ export const useJobActivity =  (url:string,params:GraphProps,dependencies: unkno
     const token = getToken(reduxToken);
     return useQuery({
         queryKey:[url,token,dependencies],
-        queryFn:()=>JobActivity(url,token,params)
+        queryFn:()=>JobActivity(url,token,params),
+        retry:2,
     })
 
 }
@@ -417,7 +423,8 @@ export const useJobTimeline =  (url:string,params:GraphProps,dependencies: unkno
     const token = getToken(reduxToken);
     return useQuery({
         queryKey:[url,token,dependencies],
-        queryFn:()=>JobTimeLine(url,token,params)
+        queryFn:()=>JobTimeLine(url,token,params),
+        retry:2,
     })
 
 }

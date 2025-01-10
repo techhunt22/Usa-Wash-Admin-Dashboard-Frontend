@@ -43,17 +43,14 @@ export const Approve = ({
     e.preventDefault();
     if (id !== undefined) {
       userMutate(undefined, {
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
           queryClient.refetchQueries({
             queryKey: ["users", "/api/v1/admin/users"],
           });
-          queryClient.refetchQueries({
-            queryKey: ["users ", "/api/v1/admin/get-user-page-data"],
-          });
 
-          // queryClient.invalidateQueries({
-          //   queryKey: ["analytics", "/api/v1/admin/dashboard"],
-          // });
+          queryClient.resetQueries({
+            queryKey: ["analytics", "/api/v1/admin/dashboard"],
+          });
 
           onToggle(false);
           toast.success(data?.messages[0]);
@@ -71,6 +68,7 @@ export const Approve = ({
       });
     }
   };
+
   return (
     <main className="fixed inset-0 bg-black/10 flex items-center justify-center">
       <div
