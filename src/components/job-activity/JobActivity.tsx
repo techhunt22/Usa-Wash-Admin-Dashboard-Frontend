@@ -11,7 +11,6 @@ const COLORS: string[] = ["#FFC107", "#007BFF80", "#28A74580", "#6C757D80"];
 export const JobActivity = (): JSX.Element | null => {
   const [date, setDate] = useState<Date>(new Date());
 
-  // Format the date to get YYYY-MM-DD (without time)
   const formattedDate: string = date.toISOString().slice(0, 10);
 
   // Fetch data using the hook
